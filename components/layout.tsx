@@ -5,7 +5,7 @@ import Footer from './footer';
 const Layout: React.FC = ({ children }) => {
   return (
     <>
-      <Header></Header>
+      <Header />
       <div className="min-h-screen">
         <main>{children}</main>
       </div>
