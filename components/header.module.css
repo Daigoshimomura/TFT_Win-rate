@@ -1,16 +1,18 @@
 .header{
+  width: auto;
+  height: 130px;
   text-align: center;
-  font-size: 80px;
-  margin: 1px;
-  padding: 10px 20px 30px 40px;
-  color: red;
-  bottom: 10px;
+  margin-bottom: 50px;
+  background-color: #97B4CE;
   }
   .title{
-    margin: 1px;
+    font-size: 72px;
+    letter-spacing: 30px;
+    font-weight: 600;
   }
   .headerunder 
   {
+  margin-top: 0px;
   text-align: center;
   font-size: 15px;
-  margin: 1px;};
+  };
