@@ -1,6 +1,8 @@
 .galaxiesmode {
   text-align: center;
   line-height: 30px;
+  padding-top: 20px;
+  margin-bottom: 15px;
 }
 
 .galaxies {
@@ -8,6 +10,9 @@
 }
 
 .galaxiesimg {
-  width: 100px;
-  height: 81px;
+  border-style: solid;
+  border-color: black;
+  background-color: #87a9c7;
+  width: 89px;
+  height: 73px;
 }

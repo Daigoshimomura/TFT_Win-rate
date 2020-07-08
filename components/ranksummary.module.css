@@ -1,3 +1,32 @@
-ranksummary{
-  
+.ranksummary {
+}
+.char {
+  font-size: 25px;
+  margin: 0px 0px 0px 10px;
+}
+.summarytop {
+  background-color: #97b4ce;
+  height: 53px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.summary {
+  padding-left: 20px;
+}
+.imggala {
+  width: 50px;
+  height: 40px;
+  margin-right: 8px;
+  margin-top: 3.5px;
+  margin-bottom: 3.5px;
+  background-color: #87a9c7;
+  border-style: solid;
+  border-color: black;
+}
+.imgchampion {
+  width: 47px;
+  height: 35px;
+  margin-right: 5px;
+  margin-top: 9px;
+  margin-bottom: 9px;
 }
