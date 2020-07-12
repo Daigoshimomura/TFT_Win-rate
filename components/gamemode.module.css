@@ -1,0 +1,45 @@
+.gamemode {
+  width: 1140px
+}
+.char {
+  font-size: 25px;
+  margin: 0px 0px 0px 10px;
+}
+.game{
+  width: 300px;
+  height: 143px;
+  border-style: solid;
+  border-width: 0.5px;
+  border-color: black;
+  background-color: #97b4ce;
+  padding: 10px;
+  display: inline-block;
+  margin: 10px 0px 10px 40px;
+}
+.gamemodeimg{
+  border-style: solid;
+  border-width: 0.5px;
+  border-color: black;
+  background-color: white;
+  width: 100px;
+  height: 81px;
+  float: left;
+  margin: 25px 0px 20px 0px;
+}
+.text{
+  float: right;
+}
+.title{
+  width: 190px;
+  height: 20px;
+  font-size: 20px;
+  letter-spacing: 5px;
+  text-align: center;
+  /* background-color: white; */
+}
+.description{
+  width: 188px;
+  height: 66px;
+  text-align: center;
+  /* background-color: white; */
+}

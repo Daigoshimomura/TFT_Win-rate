@@ -17,3 +17,18 @@
   width: 89px;
   height: 73px;
 }
+
+.galaxiespick{
+  margin-left: 15px;
+  margin-right: 15px;
+  display: inline-block;
+}
+
+.galaxiesimgpick{
+  border-width: 8px;
+  border-style: solid;
+  border-color: #C42B2B;
+  background-color: #87a9c7;
+  width: 110px;
+  height: 91px;
+}

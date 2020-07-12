@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './galaxiesmodepick.module.css';
+import styles from './galaxiesmodepick_select.module.css';
 import Link from 'next/link';
 
 const Pick: React.FC = () => {
@@ -41,10 +41,10 @@ const Pick: React.FC = () => {
           />
         </Link>
       </div>
-      <div className={styles.galaxies}>
+      <div className={styles.galaxiespick}>
         <Link href="/posts/galaxies">
           <img
-            className={styles.galaxiesimg}
+            className={styles.galaxiesimgpick}
             src="/Galaxiesmode/ギャラクシーティックアーモリー.png"
             alt="mideamu Logo"
           />
