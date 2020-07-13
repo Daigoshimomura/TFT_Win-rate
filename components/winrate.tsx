@@ -6,6 +6,10 @@ const Winrate: React.FC = () => {
   return (
     <div className={styles.winrate}>
       <Single />
+      <Single />
+      <Single />
+      <Single />
+      <Single />
     </div>
   );
 };

@@ -1,59 +1,84 @@
-.winrate{
+.winrate {
   width: 1140px;
   height: auto;
 }
-.block{
+.block {
   width: 1140px;
   background-color: #97b4ce;
   border: none;
   margin: 0px;
 }
+
+.gap{
+  height: 10px;
+}
+
 .titleline{
   height: 20px;
   background-color: white;
-  
+  display: flex;
+  padding-right: 10px;
+  padding-left: 20px;
 }
-.titles{
-  display: inline-block;
+.titles {
+  display: flex;
 }
-.title{
-  display: inline-block;
+.title {
   margin: 0px;
-  margin-left: 10px;
+  margin-right: 2px;
 }
-.ranks{
-  display: inline-block
+.ranks {
+  display: flex;
+  margin-left: auto;
 }
-.rank{
-  display: inline-block;
+.one {
   margin: 0px;
+  margin-right: 40px;
+}
+.fours {
+  display: flex;
+  margin-right: 20px;
 }
 .four{
-  display: inline-block;
+  margin: 0px;
 }
-.yajirusi{
+.yajirusi {
   width: 20px;
 }
 
-.traitsimg{
+
+.content {
+  height: 60px;
+  display: flex;
+  margin-top: 10px
+}
+
+.traits{
+  margin: auto auto auto 10px;
+}
+.traitsimg {
   width: 50px;
   height: 50px;
+  margin-right: -12px;
 }
 
-.champions{
+.champions {
   width: 500px;
+  margin:auto auto auto 60px;
 }
-.championsimg{
-  width: 59px;
-  height: 50px;
+.championsimg {
+  width: 50px;
+  height: 42px;
+  margin-right: 5px;
 }
 
-.rate{
-  display: inline-block;
+.rate {
+  margin: auto 30px auto 40px;
 }
-.onerate{
-  display: inline-block;
+.onerate {
+  margin: auto;
 }
-.fourrate{
-  display: inline-block;
+.fourrate {
+  margin: auto;
+  margin-left: 20px;
 }
