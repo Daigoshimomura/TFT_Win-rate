@@ -1,17 +1,30 @@
-import Reack from 'react';
+import React from 'react';
+import Link from 'next/link';
+import fetch from 'node-fetch';
 
-import { Router, Request, Response, NextFunction } from 'express';
+type Props = {
+  stars: number;
+};
 
-const router = Router();
+function Index({ stars }: Props) {
+  return (
+    <div>
+      <p>Next.js has {stars} ⭐️</p>
+      <Link href="/get-server-side-props">
+        <a>Go to getServerSideProps</a>
+      </Link>
+    </div>
+  );
+}
 
-router.post(
-  '/endpoint',
-  (_req: Request, _res: Response, _next: NextFunction) => {
-    console.log('req');
-    console.log(_req.body);
+export async function getStaticProps() {
+  const res = await fetch('https://api.github.com/repos/zeit/next.js');
+  const json = await res.json();
+  return {
+    props: {
+      stars: json.stargazers_count,
+    },
+  };
+}
 
-    return _res.status(200).json('success');
-  }
-);
-
-export default router;
+export default Index;
