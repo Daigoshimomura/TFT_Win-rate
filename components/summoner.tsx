@@ -1,12 +1,12 @@
 import Reack from 'react';
 
-interface LeagueListDTO {
+type LeagueListDTO = {
   tier: string;
   leagueId: string;
   queue: string;
   name: string;
   entries: LeagueItemDTO[];
-}
+};
 
 interface LeagueItemDTO {
   summonerId: string;
@@ -30,3 +30,5 @@ interface SummonerDTO {
   revisionDate: number;
   summonerLevel: number;
 }
+
+export default LeagueListDTO;

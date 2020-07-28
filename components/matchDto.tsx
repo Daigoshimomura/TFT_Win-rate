@@ -1,9 +1,9 @@
 import Reack from 'react';
 
-interface MatchDto {
+type MatchDto = {
   metadata: MetadataDto;
   info: InfoDto;
-}
+};
 
 interface MetadataDto {
   data_version: string;
@@ -55,3 +55,5 @@ interface UnitDto {
   rarity: number;
   tier: number;
 }
+
+export default MatchDto;
