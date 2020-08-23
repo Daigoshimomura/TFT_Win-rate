@@ -5,13 +5,13 @@ type MatchDto = {
   info: InfoDto;
 };
 
-interface MetadataDto {
+type MetadataDto = {
   data_version: string;
   match_id: string;
   participants: string[];
-}
+};
 
-interface InfoDto {
+type InfoDto = {
   game_datetime: number;
   game_length: number;
   game_variation: string;
@@ -19,9 +19,9 @@ interface InfoDto {
   queue_id: number;
   tft_set_number: number;
   participants: ParticipantDto[];
-}
+};
 
-interface ParticipantDto {
+type ParticipantDto = {
   companion: CompanionDto;
   gold_left: number;
   last_round: number;
@@ -33,27 +33,27 @@ interface ParticipantDto {
   total_damage_to_players: number;
   traits: TraitDto[];
   units: UnitDto[];
-}
+};
 
-interface CompanionDto {
+type CompanionDto = {
   content_ID: string;
   skin_ID: number;
   species: string;
-}
+};
 
-interface TraitDto {
+type TraitDto = {
   name: string;
   num_units: number;
   tier_current: number;
   tier_total: number;
-}
+};
 
-interface UnitDto {
+type UnitDto = {
   items: number[];
   character_id: string;
   name: string;
   rarity: number;
   tier: number;
-}
+};
 
 export default MatchDto;
