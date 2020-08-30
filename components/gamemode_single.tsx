@@ -6,7 +6,7 @@ const Singlegamemode: React.FC = () => {
     <div className={styles.game}>
       <img
         className={styles.gamemodeimg}
-        src="/Galaxiesmode/ミディアムレジェンド.png"
+        src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
         alt="mideamu Logo"
       />
       <div className={styles.text}>

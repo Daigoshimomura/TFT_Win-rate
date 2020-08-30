@@ -6,7 +6,9 @@ import Win from '../../components/winrate';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { compileFunction } from 'vm';
-import Match, { MetadataDto } from '../../components/matchDto';
+import championdata from '../../public/json/champions.json';
+import galaxiesdata from '../../public/json/galaxies.json';
+import { match } from 'assert';
 
 type Props = {
   tier: string;
@@ -25,11 +27,9 @@ const Post: React.FC<Props> = (props) => {
   );
 };
 
-const api_key = 'RGAPI-1c5fe0d0-2a58-46e2-9380-848043e369f5';
+const api_key = 'RGAPI-68bed6cb-53d1-4b98-a735-2119d63427e1';
 
 export const getStaticProps: GetStaticProps = async (paths) => {
-  paths.params?.mode;
-
   const url = 'https://jp1.api.riotgames.com/tft/league/v1/challenger?';
 
   //apiからデータ取得
@@ -41,8 +41,6 @@ export const getStaticProps: GetStaticProps = async (paths) => {
     },
   });
   const summoners = await res.json();
-  // TODO とりあえず一人分だけ実装する。後で全部取るようにする。
-
   const puuidList = [];
   // 今回は5回分、回すようにする。
   for (var i = 0; i < 5; i++) {
@@ -56,12 +54,39 @@ export const getStaticProps: GetStaticProps = async (paths) => {
   console.log(matchidList);
   const matchDataList = await callData(matchidList);
 
-  type statistics_data = {
-    galaxie;
+  const mode = () => {
+    for (const galaxies of galaxiesdata) {
+      if (galaxies.janame === paths) return galaxies.key;
+    }
+    return 'TFT3_GameVariation_None';
   };
 
+  type statistics_data = {
+    //ギャラクシーモード
+    galaxiesmode: string;
+    //チーム名
+    team_name: string;
+    //発動している特性
+    traitList: string[];
+    //チャンピオン名
+    champion: string[];
+    //勝率1位
+    first_place: number;
+    //勝率4位以上
+    four_rank_or_more: number;
+  };
+
+  var matchcount: number = 0;
+
+  // const statistics_data: statistics_data =
   //取得してきたデータを整理
   for (const matchData of matchDataList) {
+    if (matchData.galaxiesmode === mode()) {
+      matchcount++;
+      //チーム名を決める
+      for (const trait of matchData.playerDtoList) {
+      }
+    }
   }
 
   return {
@@ -193,13 +218,11 @@ const callData = async (matchidList: string[]) => {
       const unitsDtoList: unitDto[] = [];
       for (const unitdata of participants.units) {
         const unitDto: unitDto = {
-          //なぜかデータがとれない
-          champion: unitdata.name,
+          champion: unitdata.character_id,
           rarity: unitdata.rarity,
           tier: unitdata.tier,
         };
         unitsDtoList.push(unitDto);
-        console.log(unitDto);
       }
 
       const playerDto: playerDto = {
@@ -223,7 +246,7 @@ const callData = async (matchidList: string[]) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [
-      { params: { mode: 'hoge' } },
+      { params: { mode: '宝の山' } },
       // See the "paths" section below
     ],
     fallback: false, // See the "fallback" section below

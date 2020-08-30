@@ -9,7 +9,7 @@ const Pick: React.FC = () => {
         <Link href="/galaxies/hoge">
           <img
             className={styles.galaxiesimg}
-            src="/Galaxiesmode/ギャラクシーティックアーモリー.png"
+            src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
             alt="mideamu Logo"
           />
         </Link>
@@ -18,7 +18,7 @@ const Pick: React.FC = () => {
         <Link href="/posts/galaxies">
           <img
             className={styles.galaxiesimg}
-            src="/Galaxiesmode/ギャラクシーティックアーモリー.png"
+            src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
             alt="mideamu Logo"
           />
         </Link>
@@ -27,7 +27,7 @@ const Pick: React.FC = () => {
         <Link href="/posts/galaxies">
           <img
             className={styles.galaxiesimg}
-            src="/Galaxiesmode/ギャラクシーティックアーモリー.png"
+            src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
             alt="mideamu Logo"
           />
         </Link>
@@ -36,7 +36,7 @@ const Pick: React.FC = () => {
         <Link href="/posts/galaxies">
           <img
             className={styles.galaxiesimg}
-            src="/Galaxiesmode/ギャラクシーティックアーモリー.png"
+            src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
             alt="mideamu Logo"
           />
         </Link>
@@ -45,7 +45,7 @@ const Pick: React.FC = () => {
         <Link href="/posts/galaxies">
           <img
             className={styles.galaxiesimg}
-            src="/Galaxiesmode/ギャラクシーティックアーモリー.png"
+            src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
             alt="mideamu Logo"
           />
         </Link>
@@ -54,7 +54,7 @@ const Pick: React.FC = () => {
         <Link href="/posts/galaxies">
           <img
             className={styles.galaxiesimg}
-            src="/Galaxiesmode/ギャラクシーティックアーモリー.png"
+            src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
             alt="mideamu Logo"
           />
         </Link>
@@ -63,7 +63,7 @@ const Pick: React.FC = () => {
         <Link href="/posts/galaxies">
           <img
             className={styles.galaxiesimg}
-            src="/Galaxiesmode/ギャラクシーティックアーモリー.png"
+            src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
             alt="mideamu Logo"
           />
         </Link>
@@ -72,7 +72,7 @@ const Pick: React.FC = () => {
         <Link href="/posts/galaxies">
           <img
             className={styles.galaxiesimg}
-            src="/Galaxiesmode/ギャラクシーティックアーモリー.png"
+            src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
             alt="mideamu Logo"
           />
         </Link>
@@ -81,7 +81,7 @@ const Pick: React.FC = () => {
         <Link href="/posts/galaxies">
           <img
             className={styles.galaxiesimg}
-            src="/Galaxiesmode/ギャラクシーティックアーモリー.png"
+            src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
             alt="mideamu Logo"
           />
         </Link>

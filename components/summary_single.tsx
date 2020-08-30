@@ -7,7 +7,7 @@ const Single: React.FC = () => {
       <span className={styles.summary}>
         <img
           className={styles.imggala}
-          src="/Galaxiesmode/ギャラクシーティックアーモリー.png"
+          src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
           alt="mideamu Logo"
         />
         <img
@@ -59,7 +59,7 @@ const Single: React.FC = () => {
       <span className={styles.summary}>
         <img
           className={styles.imggala}
-          src="/Galaxiesmode/ミディアムレジェンド.png"
+          src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
           alt="mideamu Logo"
         />
         <img
