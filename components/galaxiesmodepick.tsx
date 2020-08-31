@@ -6,7 +6,7 @@ const Pick: React.FC = () => {
   return (
     <div className={styles.galaxiesmode}>
       <div className={styles.galaxies}>
-        <Link href="/galaxies/hoge">
+        <Link href="/galaxies/宝の山">
           <img
             className={styles.galaxiesimg}
             src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"

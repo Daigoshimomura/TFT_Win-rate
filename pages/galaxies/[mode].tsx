@@ -8,7 +8,9 @@ import { ParsedUrlQuery } from 'querystring';
 import { compileFunction } from 'vm';
 import championdata from '../../public/json/champions.json';
 import galaxiesdata from '../../public/json/galaxies.json';
+import traitsdata from '../../public/json/traits.json';
 import { match } from 'assert';
+import { type } from 'os';
 
 type Props = {
   tier: string;
@@ -27,7 +29,7 @@ const Post: React.FC<Props> = (props) => {
   );
 };
 
-const api_key = 'RGAPI-68bed6cb-53d1-4b98-a735-2119d63427e1';
+const api_key = 'RGAPI-b6ae253b-340c-4a2f-bf48-3e972f9f563d';
 
 export const getStaticProps: GetStaticProps = async (paths) => {
   const url = 'https://jp1.api.riotgames.com/tft/league/v1/challenger?';
@@ -63,28 +65,37 @@ export const getStaticProps: GetStaticProps = async (paths) => {
 
   type statistics_data = {
     //ギャラクシーモード
-    galaxiesmode: string;
+    galaxiesmode?: string;
     //チーム名
-    team_name: string;
+    team_name?: string;
     //発動している特性
-    traitList: string[];
+    traitList?: string[];
     //チャンピオン名
-    champion: string[];
+    champion?: string[];
     //勝率1位
-    first_place: number;
+    first_place?: number;
     //勝率4位以上
-    four_rank_or_more: number;
+    four_rank_or_more?: number;
   };
 
   var matchcount: number = 0;
 
-  // const statistics_data: statistics_data =
+  const statistics_data: statistics_data = {};
   //取得してきたデータを整理
   for (const matchData of matchDataList) {
     if (matchData.galaxiesmode === mode()) {
       matchcount++;
       //チーム名を決める
-      for (const trait of matchData.playerDtoList) {
+      for (const playerDtoList of matchData.playerDtoList) {
+        for (const traiDto of playerDtoList.traiDtoList) {
+          const team_name = () => {
+            const typeOrigin: string = 'origin';
+            const typeClass: string = 'class';
+
+            if (traiDto.type === typeOrigin) {
+            }
+          };
+        }
       }
     }
   }
@@ -174,6 +185,8 @@ const callData = async (matchidList: string[]) => {
     num_units: number;
     //発動している特性のランク
     tier_current: number;
+    //type
+    type: string;
   };
 
   type unitDto = {
@@ -202,14 +215,21 @@ const callData = async (matchidList: string[]) => {
 
     const json = await res.json();
 
-    //特性を取得しtraiDtoListに格納する。
+    //特性を取得しtraiDtoListに格納する。todo==
     const traiDtoList: traitDto[] = [];
     for (const participants of json.info.participants) {
       for (const traitdata of participants.traits) {
+        const type = () => {
+          for (const traits of traitsdata) {
+            if (traits.key == traitdata.name) return traits.type;
+          }
+          return 'タイプが存在しない';
+        };
         const traitDto: traitDto = {
           name: traitdata.name,
           num_units: traitdata.num_units,
           tier_current: traitdata.tier_current,
+          type: type(),
         };
         traiDtoList.push(traitDto);
       }
@@ -224,7 +244,16 @@ const callData = async (matchidList: string[]) => {
         };
         unitsDtoList.push(unitDto);
       }
-
+      console.log('前' + traiDtoList);
+      //発動している特性ランクかつユニット数の大きい順に並べ替える
+      traiDtoList.sort(function (a, b) {
+        if (a.tier_current > b.tier_current) return -1;
+        if (a.tier_current > b.tier_current) return 1;
+        if (a.num_units > b.num_units) return -1;
+        if (a.num_units < b.num_units) return 1;
+        return 0;
+      });
+      console.log('後' + traiDtoList);
       const playerDto: playerDto = {
         traiDtoList: traiDtoList,
         unitList: unitsDtoList,

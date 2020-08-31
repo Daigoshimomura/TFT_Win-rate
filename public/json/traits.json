@@ -2,6 +2,7 @@
   {
     "key": "Astro",
     "name": "Astro",
+    "janame": "アストロ",
     "description": "Astro Champions have reduced mana cost.",
     "type": "origin",
     "sets": [
@@ -14,6 +15,7 @@
   {
     "key": "Battlecast",
     "name": "Battlecast",
+    "janame": "バトルキャスト",
     "description": "Battlecast Champions, upon dealing or taking 10 instances of damage, heal if below half health, or deal magic damage to the nearest enemy if above half.",
     "type": "origin",
     "sets": [
@@ -41,6 +43,7 @@
   {
     "key": "Set3_Blademaster",
     "name": "Blademaster",
+    "janame": "ブレードマスター",
     "description": "Blademasters' Basic Attacks have a chance to trigger two additional attacks against their target. These additional attacks deal damage like Basic Attacks and trigger on-hit effects.",
     "type": "class",
     "sets": [
@@ -63,6 +66,7 @@
   {
     "key": "Blaster",
     "name": "Blaster",
+    "janame": "ブラスター",
     "description": "Every fourth Basic Attack from a Blaster fires additional attacks at random enemies. These additional attacks deal damage like Basic Attacks, trigger on-hit effects, and can critically hit.",
     "type": "class",
     "sets": [
@@ -80,6 +84,7 @@
   {
     "key": "Set3_Brawler",
     "name": "Brawler",
+    "janame": "ブローラー",
     "description": "Brawlers gain bonus Maximum Health.",
     "type": "class",
     "sets": [
@@ -97,6 +102,7 @@
   {
     "key": "Set3_Celestial",
     "name": "Celestial",
+    "janame": "セレスティアル",
     "description": "All allies heal for some of the damage they deal with spells and attacks.",
     "type": "origin",
     "sets": [
@@ -119,6 +125,7 @@
   {
     "key": "Chrono",
     "name": "Chrono",
+    "janame": "クロノ",
     "description": "All allies gain attack speed every few seconds.",
     "type": "origin",
     "sets": [
@@ -146,6 +153,7 @@
   {
     "key": "Cybernetic",
     "name": "Cybernetic",
+    "janame": "サイバネティック",
     "description": "Cybernetic champions with at least one item gain Health and Attack Damage.",
     "type": "origin",
     "sets": [
@@ -163,6 +171,7 @@
   {
     "key": "DarkStar",
     "name": "Dark Star",
+    "janame": "ダークスター",
     "description": "When a Dark Star champion dies they give increased damage, plus any previous stacks of this effect, to the nearest ally Dark Star champion.",
     "type": "origin",
     "sets": [
@@ -185,6 +194,7 @@
   {
     "key": "Demolitionist",
     "name": "Demolitionist",
+    "janame": "デモリショニスト",
     "description": "Damage from Demolitionists' spellcasts stuns their targets for a few seconds. (Once per spellcast)",
     "type": "class",
     "sets": [
@@ -197,6 +207,7 @@
   {
     "key": "Infiltrator",
     "name": "Infiltrator",
+    "janame": "インフィルトレーター",
     "innate": "At the start of combat, Infiltrators move to the enemy's backline.",
     "description": "Infiltrators gain Attack Speed for a few seconds at the start of combat.",
     "type": "class",
@@ -220,6 +231,7 @@
   {
     "key": "ManaReaver",
     "name": "Mana-Reaver",
+    "janame": "マナリーヴァー",
     "description": "Mana-Reavers' Basic Attacks increase the mana cost of their target's next spellcast by a percentage.",
     "type": "class",
     "sets": [
@@ -232,6 +244,7 @@
   {
     "key": "MechPilot",
     "name": "Mech-Pilot",
+    "janame": "メックパイロット",
     "description": "At the start of combat, three random Mech-Pilots are teleported into a Super-Mech. The Super-Mech has the combined Health, Attack Damage, and Traits of its pilots, as well as 3 random items from among them. When the Super-Mech dies the Pilots are ejected, granted Mana, and continue to fight.",
     "type": "origin",
     "sets": [
@@ -244,6 +257,7 @@
   {
     "key": "Mercenary",
     "name": "Mercenary",
+    "janame": "傭兵",
     "innate": "Upgrades for Mercenaries' spells have a chance to appear in the shop.",
     "type": "class",
     "sets": [
@@ -256,6 +270,7 @@
   {
     "key": "Set3_Mystic",
     "name": "Mystic",
+    "janame": "ミスティック",
     "description": "All allies gain Magic Resistance.",
     "type": "class",
     "sets": [
@@ -273,6 +288,7 @@
   {
     "key": "Paragon",
     "name": "Paragon",
+    "janame": "パラゴン",
     "description": "Ally Star Guardian basic attacks are converted to true damage. All other ally basic attacks are converted to magic damage.",
     "type": "class",
     "sets": [
@@ -285,6 +301,7 @@
   {
     "key": "Protector",
     "name": "Protector",
+    "janame": "プロテクター",
     "description": "Protectors shield themselves for a few seconds whenever they cast a spell. This shield doesn't stack.",
     "type": "class",
     "sets": [
@@ -307,6 +324,7 @@
   {
     "key": "Rebel",
     "name": "Rebel",
+    "janame": "流れ者",
     "description": "At the start of combat, Rebels gain a shield and bonus damage for each adjacent Rebel. The shield lasts for a few seconds.",
     "type": "origin",
     "sets": [
@@ -329,6 +347,7 @@
   {
     "key": "Sniper",
     "name": "Sniper",
+    "janame": "スナイパー",
     "description": "Snipers deal percentage increased damage for each hex between themselves and their target.",
     "type": "class",
     "sets": [
@@ -346,6 +365,7 @@
   {
     "key": "Set3_Sorcerer",
     "name": "Sorcerer",
+    "janame": "ソーサラー",
     "description": "All allies have increased Spell Power.",
     "type": "class",
     "sets": [
@@ -373,6 +393,7 @@
   {
     "key": "SpacePirate",
     "name": "Space Pirate",
+    "janame": "宇宙海賊",
     "description": "Whenever a Space Pirate lands a killing blow on a Champion there is a chance to drop extra loot.",
     "type": "origin",
     "sets": [
@@ -390,6 +411,7 @@
   {
     "key": "StarGuardian",
     "name": "Star Guardian",
+    "janame": "スターガーディアン",
     "description": "Star Guardians' spellcasts grant Mana to other Star Guardians, spread among them.",
     "type": "origin",
     "sets": [
@@ -412,6 +434,7 @@
   {
     "key": "Starship",
     "name": "Starship",
+    "janame": "スターシップ",
     "innate": "Starships gain mana per second, maneuver around the board, and are immune to movement impairing effects, but can't make Basic Attacks.",
     "type": "class",
     "sets": [
@@ -424,6 +447,7 @@
   {
     "key": "Vanguard",
     "name": "Vanguard",
+    "janame": "ヴァンガード",
     "description": "Vanguard champions gain bonus Armor.",
     "type": "class",
     "sets": [
