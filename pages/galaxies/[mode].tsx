@@ -32,47 +32,13 @@ const Post: React.FC<Props> = (props) => {
 };
 
 export const getStaticProps: GetStaticProps = async (paths) => {
+  const mode: string | undefined | string[] = paths.params.mode;
   //ギャラクシーデータ
   const retrieve_data: retrieve_data = await retrieve_galaxies(paths);
 
-  const mode = () => {
-    for (const galaxies of galaxiesdata) {
-      if (galaxies.janame === paths) return galaxies.key;
-    }
-    return 'TFT3_GameVariation_None';
-  };
-
-  var matchcount: number = 0;
-
-  //取得してきたデータを整理
-  for (const matchData of matchDataList) {
-    const team_name = teamName(matchData);
-  }
-
   return {
-    props: {},
+    props: { paths },
   };
-};
-
-const teamName = (matchData: mathcData) => {
-  if (matchData.galaxiesmode === mode()) {
-    matchcount++;
-    //チーム名を決める
-    for (const playerDtoList of matchData.playerDtoList) {
-      for (const traiDto of playerDtoList.traiDtoList) {
-        const typeOrigin: string = 'origin';
-        const typeClass: string = 'class';
-        const team_name: string =
-          single_name(typeOrigin) + single_name(typeClass);
-        const single_name = (type: string) => {
-          if (traiDto.type != typeOrigin) {
-            return 'origin';
-          }
-          return 'class';
-        };
-      }
-    }
-  }
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {

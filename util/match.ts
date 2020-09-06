@@ -1,15 +1,13 @@
-import Reack from 'react';
-
 //matchdataを整理した型
 
-type matchData = {
+export type matchData = {
   //ギャラクシーモード
   galaxiesmode: string;
   //プレイヤーごとのデータ
   playerDtoList: playerDto[];
 };
 
-type playerDto = {
+export type playerDto = {
   //発動している特性
   traiDtoList: traitDto[];
   //ユニットリスト
@@ -18,7 +16,7 @@ type playerDto = {
   rank: string;
 };
 
-type traitDto = {
+export type traitDto = {
   //特性名
   name: string;
   //特性のユニット数
@@ -29,7 +27,7 @@ type traitDto = {
   type: string;
 };
 
-type unitDto = {
+export type unitDto = {
   //チャンピオン名
   champion: string;
   //チャンピオンのコスト
@@ -37,5 +35,3 @@ type unitDto = {
   //チャンピオンの重なり具合
   tier: number;
 };
-
-export default matchData;

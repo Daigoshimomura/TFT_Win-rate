@@ -1,16 +1,25 @@
-import React from 'react';
 import retrieve_data from '../util/retrieve_data';
-import matchData from '../util/match';
+import { matchData, playerDto, traitDto, unitDto } from '../util/match';
 import championdata from '../public/json/champions.json';
 import galaxiesdata from '../public/json/galaxies.json';
 import traitsdata from '../public/json/traits.json';
+import { GetStaticPropsContext } from 'next';
+import { ParsedUrlQuery } from 'querystring';
 
 //apiをコールしてギャラクシーのデータを返すクラス
 
 //riotapikey
 const api_key = 'RGAPI-b6ae253b-340c-4a2f-bf48-3e972f9f563d';
+//マッチカウント数
+let matchcount: number = 0;
+//1位カウント数
+let firstcount: number = 0;
+//4位以上カウント数
+let fourcount: number = 0;
 
-const retrieve_galaxies = async (paths) => {
+const retrieve_galaxies = async (
+  paths: GetStaticPropsContext<ParsedUrlQuery>
+) => {
   const puuidList: string[] = await callSummoners();
 
   const matchidList: string[] = await callMatchid(puuidList);
@@ -18,6 +27,11 @@ const retrieve_galaxies = async (paths) => {
   console.log(matchidList);
 
   const matchDataList = await callData(matchidList);
+
+  //取得してきたデータを整理
+  for (const matchData of matchDataList) {
+    const team_name = teamName(matchData, paths);
+  }
 
   const data: retrieve_data = {};
   return data;
@@ -185,6 +199,34 @@ const callData = async (matchidList: string[]) => {
     matchDataList.push(matchData);
   }
   return matchDataList;
+};
+
+const teamName = (matchData: matchData, paths: string) => {
+  if (matchData.galaxiesmode === mode(paths)) {
+    matchcount++;
+    //チーム名を決める
+    for (const playerDtoList of matchData.playerDtoList) {
+      for (const traiDto of playerDtoList.traiDtoList) {
+        const typeOrigin: string = 'origin';
+        const typeClass: string = 'class';
+        const single_name = (type: string) => {
+          if (traiDto.type != typeOrigin) {
+            return 'origin';
+          }
+          return 'class';
+        };
+        const team_name: string =
+          single_name(typeOrigin) + single_name(typeClass);
+      }
+    }
+  }
+};
+
+const mode = (paths: string | undefined) => {
+  for (const galaxies of galaxiesdata) {
+    if (galaxies.janame === paths) return galaxies.key;
+  }
+  return 'TFT3_GameVariation_None';
 };
 
 export default retrieve_galaxies;
