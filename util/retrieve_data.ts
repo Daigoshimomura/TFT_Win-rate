@@ -1,12 +1,17 @@
-import Reack from 'react';
-
 //整理した後のデータを入れる箱
 
-type retrieve_data = {
+export type retrieve_data = {
   //ギャラクシーモード
   galaxiesmode?: string;
   //チーム名
   team_name?: string;
+  //チームカウント
+  team_count?: number;
+  //単体データ
+  single_retrieve?: single_retrieve[];
+};
+
+export type single_retrieve = {
   //発動している特性
   traitList?: string[];
   //チャンピオン名
@@ -16,5 +21,3 @@ type retrieve_data = {
   //勝率4位以上
   four_rank_or_more?: number;
 };
-
-export default retrieve_data;

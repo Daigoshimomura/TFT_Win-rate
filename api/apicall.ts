@@ -1,4 +1,4 @@
-import retrieve_data from '../util/retrieve_data';
+import { retrieve_data } from '../util/retrieve_data';
 import { matchData, playerDto, traitDto, unitDto } from '../util/match';
 import championdata from '../public/json/champions.json';
 import galaxiesdata from '../public/json/galaxies.json';
@@ -9,7 +9,7 @@ import { ParsedUrlQuery } from 'querystring';
 //apiをコールしてギャラクシーのデータを返すクラス
 
 //riotapikey
-const api_key = 'RGAPI-b6ae253b-340c-4a2f-bf48-3e972f9f563d';
+const api_key = 'RGAPI-47393455-7189-4308-a862-e313fb8a6f73';
 //マッチカウント数
 let matchcount: number = 0;
 //1位カウント数
@@ -17,9 +17,7 @@ let firstcount: number = 0;
 //4位以上カウント数
 let fourcount: number = 0;
 
-const retrieve_galaxies = async (
-  paths: GetStaticPropsContext<ParsedUrlQuery>
-) => {
+const retrieve_galaxies = async (paths: string) => {
   const puuidList: string[] = await callSummoners();
 
   const matchidList: string[] = await callMatchid(puuidList);
@@ -27,10 +25,11 @@ const retrieve_galaxies = async (
   console.log(matchidList);
 
   const matchDataList = await callData(matchidList);
-
+  //取得するモードを判別する
+  const mode = fetchMode(paths);
   //取得してきたデータを整理
   for (const matchData of matchDataList) {
-    const team_name = teamName(matchData, paths);
+    const team_name = teamName(matchData, mode);
   }
 
   const data: retrieve_data = {};
@@ -50,7 +49,7 @@ const callSummoners = async () => {
     },
   });
 
-  const summoners = res.json();
+  const summoners = await res.json();
   //TODO テスト用
   console.log(summoners);
   const puuidList = [];
@@ -140,9 +139,10 @@ const callData = async (matchidList: string[]) => {
 
     const json = await res.json();
 
-    //特性を取得しtraiDtoListに格納する。todo==
-    const traiDtoList: traitDto[] = [];
+    //特性を取得しtraiDtoListに格納する。todo
+
     for (const participants of json.info.participants) {
+      const traiDtoList: traitDto[] = [];
       for (const traitdata of participants.traits) {
         const type = () => {
           for (const traits of traitsdata) {
@@ -171,6 +171,7 @@ const callData = async (matchidList: string[]) => {
         };
         unitsDtoList.push(unitDto);
       }
+      //ここで合流してる
       console.log('前');
       console.log(traiDtoList);
       //発動している特性ランクかつユニット数の大きい順に並べ替える
@@ -201,8 +202,9 @@ const callData = async (matchidList: string[]) => {
   return matchDataList;
 };
 
-const teamName = (matchData: matchData, paths: string) => {
-  if (matchData.galaxiesmode === mode(paths)) {
+//チーム名を決める。
+const teamName = (matchData: matchData, mode: string) => {
+  if (matchData.galaxiesmode === mode) {
     matchcount++;
     //チーム名を決める
     for (const playerDtoList of matchData.playerDtoList) {
@@ -222,7 +224,8 @@ const teamName = (matchData: matchData, paths: string) => {
   }
 };
 
-const mode = (paths: string | undefined) => {
+//モード判別
+const fetchMode = (paths: string) => {
   for (const galaxies of galaxiesdata) {
     if (galaxies.janame === paths) return galaxies.key;
   }
