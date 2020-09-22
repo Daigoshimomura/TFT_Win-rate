@@ -38,9 +38,6 @@ const retrieve_galaxies = async (paths: string) => {
   //チーム名を検索して処理を分ける
   const single_retrieve: single_retrieve = {};
   for (const matchData of matchDataList) {
-    if (matchData.galaxiesmode === mode) {
-      matchcount++;
-    }
     const team_name = teamName(matchData);
 
     const singledata: singledata = kindSingledata(matchData);
@@ -226,7 +223,7 @@ const fetchMode = (paths: string) => {
   return 'TFT3_GameVariation_None';
 };
 
-//チーム名を決める TODOおいテイク
+//チーム名を決める TODO
 const teamName = (matchData: matchData) => {
   for (const playerDtoList of matchData.playerDtoList) {
     for (const traiDto of playerDtoList.traiDtoList) {
