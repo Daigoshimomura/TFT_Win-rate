@@ -1,4 +1,9 @@
-import { retrieve_data } from '../util/retrieve_data';
+import {
+  retrieve_data,
+  single_retrieve,
+  record_data,
+  singledata,
+} from '../util/retrieve_data';
 import { matchData, playerDto, traitDto, unitDto } from '../util/match';
 import championdata from '../public/json/champions.json';
 import galaxiesdata from '../public/json/galaxies.json';
@@ -9,7 +14,7 @@ import { ParsedUrlQuery } from 'querystring';
 //apiをコールしてギャラクシーのデータを返すクラス
 
 //riotapikey
-const api_key = 'RGAPI-47393455-7189-4308-a862-e313fb8a6f73';
+const api_key = 'RGAPI-41603604-4995-41d7-af4b-bfb798b2c5bb';
 //マッチカウント数
 let matchcount: number = 0;
 //1位カウント数
@@ -24,22 +29,35 @@ const retrieve_galaxies = async (paths: string) => {
   //TODO テスト用
   console.log(matchidList);
 
-  const matchDataList = await callData(matchidList);
   //取得するモードを判別する
   const mode = fetchMode(paths);
+
+  const matchDataList = await callData(matchidList, mode);
+
   //取得してきたデータを整理
+  //チーム名を検索して処理を分ける
+  const single_retrieve: single_retrieve = {};
   for (const matchData of matchDataList) {
-    const team_name = teamName(matchData, mode);
+    if (matchData.galaxiesmode === mode) {
+      matchcount++;
+    }
+    const team_name = teamName(matchData);
+
+    const singledata: singledata = kindSingledata(matchData);
   }
 
+  //勝率
+
+  //TODOデータ整理後変更List
   const data: retrieve_data = {};
   return data;
 };
 
 //summonerのpuuidを返す
+//todo後から実装
 const callSummoners = async () => {
   //challengerのサモナーデータURL
-  const url = 'https://jp1.api.riotgames.com/tft/league/v1/challenger?';
+  const url = 'https://jp1.api.riotgames.com/tft/league/v1/master?';
   //apiからデータ取得
   const res = await fetch(url, {
     method: 'GET',
@@ -121,7 +139,7 @@ const callMatchid = async (puuidList: string[]) => {
 };
 
 //data取得
-const callData = async (matchidList: string[]) => {
+const callData = async (matchidList: string[], mode: string) => {
   const matchDataList: matchData[] = [];
   const playerDtoList: playerDto[] = [];
   //マッチデータを取得
@@ -139,10 +157,9 @@ const callData = async (matchidList: string[]) => {
 
     const json = await res.json();
 
-    //特性を取得しtraiDtoListに格納する。todo
-
     for (const participants of json.info.participants) {
       const traiDtoList: traitDto[] = [];
+      //特性を取得しtraiDtoListに格納する。
       for (const traitdata of participants.traits) {
         const type = () => {
           for (const traits of traitsdata) {
@@ -156,8 +173,8 @@ const callData = async (matchidList: string[]) => {
           tier_current: traitdata.tier_current,
           type: type(),
         };
-        console.log('入れる前');
-        console.log(traitDto);
+        // console.log('入れる前');
+        // console.log(traitDto);
         traiDtoList.push(traitDto);
       }
 
@@ -171,9 +188,8 @@ const callData = async (matchidList: string[]) => {
         };
         unitsDtoList.push(unitDto);
       }
-      //ここで合流してる
-      console.log('前');
-      console.log(traiDtoList);
+      //console.log('前');
+      //console.log(traiDtoList);
       //発動している特性ランクかつユニット数の大きい順に並べ替える
       traiDtoList.sort(function (a, b) {
         if (a.tier_current > b.tier_current) return -1;
@@ -182,8 +198,8 @@ const callData = async (matchidList: string[]) => {
         if (a.num_units < b.num_units) return 1;
         return 0;
       });
-      console.log('後ろ');
-      console.log(traiDtoList);
+      // console.log('後ろ');
+      // console.log(traiDtoList);
       const playerDto: playerDto = {
         traiDtoList: traiDtoList,
         unitList: unitsDtoList,
@@ -202,28 +218,6 @@ const callData = async (matchidList: string[]) => {
   return matchDataList;
 };
 
-//チーム名を決める。
-const teamName = (matchData: matchData, mode: string) => {
-  if (matchData.galaxiesmode === mode) {
-    matchcount++;
-    //チーム名を決める
-    for (const playerDtoList of matchData.playerDtoList) {
-      for (const traiDto of playerDtoList.traiDtoList) {
-        const typeOrigin: string = 'origin';
-        const typeClass: string = 'class';
-        const single_name = (type: string) => {
-          if (traiDto.type != typeOrigin) {
-            return 'origin';
-          }
-          return 'class';
-        };
-        const team_name: string =
-          single_name(typeOrigin) + single_name(typeClass);
-      }
-    }
-  }
-};
-
 //モード判別
 const fetchMode = (paths: string) => {
   for (const galaxies of galaxiesdata) {
@@ -231,5 +225,27 @@ const fetchMode = (paths: string) => {
   }
   return 'TFT3_GameVariation_None';
 };
+
+//チーム名を決める TODOおいテイク
+const teamName = (matchData: matchData) => {
+  for (const playerDtoList of matchData.playerDtoList) {
+    for (const traiDto of playerDtoList.traiDtoList) {
+      const typeOrigin: string = 'origin';
+      const typeClass: string = 'class';
+      const single_name = (type: string) => {
+        if (traiDto.type != type) {
+          return 'origin';
+        }
+        return 'class';
+      };
+      const team_name: string =
+        single_name(typeOrigin) + single_name(typeClass);
+      return team_name;
+    }
+  }
+};
+
+//特性、チャンピオン名を並び替える
+const kindSingledata = (matchData: matchData) => {};
 
 export default retrieve_galaxies;
