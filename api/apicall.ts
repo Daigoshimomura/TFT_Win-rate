@@ -154,63 +154,72 @@ const callData = async (matchidList: string[], mode: string) => {
 
     const json = await res.json();
 
-    for (const participants of json.info.participants) {
-      const traiDtoList: traitDto[] = [];
-      //特性を取得しtraiDtoListに格納する。
-      for (const traitdata of participants.traits) {
-        const type = () => {
-          for (const traits of traitsdata) {
-            if (traits.key == traitdata.name) return traits.type;
-          }
-          return 'タイプが存在しない';
+    //ギャラクシーモードを判定してそのjsondataのみ入れる。
+    if (json.info.participants.game_variation === mode) {
+      for (const participants of json.info.participants) {
+        const traiDtoList: traitDto[] = [];
+        //特性を取得しtraiDtoListに格納する。
+        for (const traitdata of participants.traits) {
+          const type = () => {
+            for (const traits of traitsdata) {
+              if (traits.key == traitdata.name) return traits.type;
+            }
+            return 'タイプが存在しない';
+          };
+          const traitDto: traitDto = {
+            name: traitdata.name,
+            num_units: traitdata.num_units,
+            tier_current: traitdata.tier_current,
+            type: type(),
+          };
+          // console.log('入れる前');
+          // console.log(traitDto);
+          traiDtoList.push(traitDto);
+        }
+
+        //チャンピオンを取得しunitsDtoListに格納する。
+        const unitsDtoList: unitDto[] = [];
+        for (const unitdata of participants.units) {
+          const unitDto: unitDto = {
+            champion: unitdata.character_id,
+            rarity: unitdata.rarity,
+            tier: unitdata.tier,
+          };
+          unitsDtoList.push(unitDto);
+        }
+        //console.log('前');
+        //console.log(traiDtoList);
+        //発動している特性ランクかつユニット数の大きい順に並べ替える
+        traiDtoList.sort(function (a, b) {
+          if (a.tier_current > b.tier_current) return -1;
+          if (a.tier_current > b.tier_current) return 1;
+          if (a.num_units > b.num_units) return -1;
+          if (a.num_units < b.num_units) return 1;
+          return 0;
+        });
+        //レアリティ順に並び替え
+        unitsDtoList.sort(function (a, b) {
+          if (a.rarity > b.rarity) return -1;
+          if (a.rarity > b.rarity) return 1;
+          return 0;
+        });
+        // console.log('後ろ');
+        // console.log(traiDtoList);
+        const playerDto: playerDto = {
+          traiDtoList: traiDtoList,
+          unitList: unitsDtoList,
+          rank: participants.placement,
         };
-        const traitDto: traitDto = {
-          name: traitdata.name,
-          num_units: traitdata.num_units,
-          tier_current: traitdata.tier_current,
-          type: type(),
-        };
-        // console.log('入れる前');
-        // console.log(traitDto);
-        traiDtoList.push(traitDto);
+
+        playerDtoList.push(playerDto);
       }
 
-      //チャンピオンを取得しunitsDtoListに格納する。
-      const unitsDtoList: unitDto[] = [];
-      for (const unitdata of participants.units) {
-        const unitDto: unitDto = {
-          champion: unitdata.character_id,
-          rarity: unitdata.rarity,
-          tier: unitdata.tier,
-        };
-        unitsDtoList.push(unitDto);
-      }
-      //console.log('前');
-      //console.log(traiDtoList);
-      //発動している特性ランクかつユニット数の大きい順に並べ替える
-      traiDtoList.sort(function (a, b) {
-        if (a.tier_current > b.tier_current) return -1;
-        if (a.tier_current > b.tier_current) return 1;
-        if (a.num_units > b.num_units) return -1;
-        if (a.num_units < b.num_units) return 1;
-        return 0;
-      });
-      // console.log('後ろ');
-      // console.log(traiDtoList);
-      const playerDto: playerDto = {
-        traiDtoList: traiDtoList,
-        unitList: unitsDtoList,
-        rank: participants.placement,
+      const matchData: matchData = {
+        galaxiesmode: json.info.game_variation,
+        playerDtoList: playerDtoList,
       };
-
-      playerDtoList.push(playerDto);
+      matchDataList.push(matchData);
     }
-
-    const matchData: matchData = {
-      galaxiesmode: json.info.game_variation,
-      playerDtoList: playerDtoList,
-    };
-    matchDataList.push(matchData);
   }
   return matchDataList;
 };
