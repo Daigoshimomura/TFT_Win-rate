@@ -21,6 +21,10 @@ let matchcount: number = 0;
 let firstcount: number = 0;
 //4位以上カウント数
 let fourcount: number = 0;
+//特性種類
+const typeOrigin: string = 'origin';
+//特性種類
+const typeClass: string = 'class';
 
 const retrieve_galaxies = async (paths: string) => {
   const puuidList: string[] = await callSummoners();
@@ -38,9 +42,6 @@ const retrieve_galaxies = async (paths: string) => {
   //チーム名を検索して処理を分ける
   const single_retrieve: single_retrieve = {};
   for (const matchData of matchDataList) {
-    const team_name = teamName(matchData);
-
-    const singledata: singledata = kindSingledata(matchData);
   }
 
   //勝率
@@ -172,8 +173,6 @@ const callData = async (matchidList: string[], mode: string) => {
             tier_current: traitdata.tier_current,
             type: type(),
           };
-          // console.log('入れる前');
-          // console.log(traitDto);
           traiDtoList.push(traitDto);
         }
 
@@ -197,7 +196,7 @@ const callData = async (matchidList: string[], mode: string) => {
           if (a.num_units < b.num_units) return 1;
           return 0;
         });
-        //レアリティ順に並び替え
+        //チャンピオンをレアリティ順に並び替え
         unitsDtoList.sort(function (a, b) {
           if (a.rarity > b.rarity) return -1;
           if (a.rarity > b.rarity) return 1;
@@ -205,10 +204,14 @@ const callData = async (matchidList: string[], mode: string) => {
         });
         // console.log('後ろ');
         // console.log(traiDtoList);
+
+        //チーム名
+        const team_name: string = teamName(traiDtoList);
         const playerDto: playerDto = {
           traiDtoList: traiDtoList,
           unitList: unitsDtoList,
           rank: participants.placement,
+          team_name: team_name,
         };
 
         playerDtoList.push(playerDto);
@@ -232,26 +235,21 @@ const fetchMode = (paths: string) => {
   return 'TFT3_GameVariation_None';
 };
 
-//チーム名を決める TODO
-const teamName = (matchData: matchData) => {
-  for (const playerDtoList of matchData.playerDtoList) {
-    for (const traiDto of playerDtoList.traiDtoList) {
-      const typeOrigin: string = 'origin';
-      const typeClass: string = 'class';
-      const single_name = (type: string) => {
-        if (traiDto.type != type) {
-          return 'origin';
-        }
-        return 'class';
-      };
-      const team_name: string =
-        single_name(typeOrigin) + single_name(typeClass);
-      return team_name;
-    }
-  }
+//チーム名を決める
+const teamName = (traiDtoList: traitDto[]) => {
+  const team_name: string =
+    single_name(traiDtoList, typeOrigin) + single_name(traiDtoList, typeClass);
+  return team_name;
 };
 
-//特性、チャンピオン名を並び替える
-const kindSingledata = (matchData: matchData) => {};
+const single_name = (traiDtoList: traitDto[], type: string) => {
+  for (const traiDto of traiDtoList) {
+    if (traiDto.type === type) {
+      return traiDto.name;
+    }
+  }
+  //もしかしたらOrigin,classどちらかの特性だけのチームのときには空文字を返す
+  return '';
+};
 
 export default retrieve_galaxies;

@@ -14,6 +14,8 @@ export type playerDto = {
   unitList: unitDto[];
   //順位
   rank: string;
+  //チーム名
+  team_name: string;
 };
 
 export type traitDto = {
