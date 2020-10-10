@@ -12,7 +12,7 @@ import traitsdata from '../../public/json/traits.json';
 import { match } from 'assert';
 import { type } from 'os';
 import retrieve_galaxies from '../../api/apicall';
-import { retrieve_data } from '../../util/retrieve_data';
+import { RetrieveData } from '../../util/retrieve_data';
 
 type Hoge = {
   fuga: string;
@@ -44,7 +44,7 @@ const Post: React.FC<Props> = (props) => {
 export const getStaticProps = async ({ params }: Paths) => {
   const mode: string = params?.mode;
   //ギャラクシーデータ
-  const retrieve_data: retrieve_data = await retrieve_galaxies(mode);
+  const retrieve_data: RetrieveData = await retrieve_galaxies(mode);
 
   return {
     props: { mode },

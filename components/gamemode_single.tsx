@@ -1,22 +1,24 @@
 import Reack from 'react';
 import styles from './gamemode.module.css';
+import modedate from '../public/json/galaxies.json';
 
 const Singlegamemode: React.FC = () => {
-  return (
-    <div className={styles.game}>
-      <img
-        className={styles.gamemodeimg}
-        src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
-        alt="mideamu Logo"
-      />
-      <div className={styles.text}>
-        <p className={styles.title}>ミニレジェンド</p>
-        <p className={styles.description}>
-          試合開始時のプレイヤーの体力が85になります。（通常の体力は100）
-        </p>
+  const elms = modedate.galaxies.map((elm, index) => {
+    return (
+      <div key={index} className={styles.game}>
+        <img
+          className={styles.gamemodeimg}
+          src={`/Galaxiesmode/${elm.key}.png`}
+          alt={elm.janame}
+        />
+        <div className={styles.text}>
+          <p className={styles.title}>{elm.janame}</p>
+          <p className={styles.description}>{elm.description}</p>
+        </div>
       </div>
-    </div>
-  );
+    );
+  });
+  return <div>{elms}</div>;
 };
 
 export default Singlegamemode;

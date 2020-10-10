@@ -1,24 +1,24 @@
 //matchdataを整理した型
 
-export type matchData = {
+export type MatchData = {
   //ギャラクシーモード
   galaxiesmode: string;
   //プレイヤーごとのデータ
-  playerDtoList: playerDto[];
+  playerDtoList: PlayerDto[];
 };
 
-export type playerDto = {
+export type PlayerDto = {
   //発動している特性
-  traiDtoList: traitDto[];
+  traiDtoList: TraitDto[];
   //ユニットリスト
-  unitList: unitDto[];
+  unitList: UnitDto[];
   //順位
-  rank: string;
+  rank: number;
   //チーム名
-  team_name: string;
+  teamName: string;
 };
 
-export type traitDto = {
+export type TraitDto = {
   //特性名
   name: string;
   //特性のユニット数
@@ -29,7 +29,7 @@ export type traitDto = {
   type: string;
 };
 
-export type unitDto = {
+export type UnitDto = {
   //チャンピオン名
   champion: string;
   //チャンピオンのコスト
