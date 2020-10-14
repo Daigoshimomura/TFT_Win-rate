@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../../components/header';
-import Pick from '../../components/galaxiesmodepick_select';
+import Pick from '../../components/galaxiesmodepickSelect';
 import styles from './galaxies.module.css';
 import Win from '../../components/winrate';
 import { GetStaticProps, GetStaticPaths } from 'next';
@@ -12,14 +12,13 @@ import traitsdata from '../../public/json/traits.json';
 import { match } from 'assert';
 import { type } from 'os';
 import retrieve_galaxies from '../../api/apicall';
-import { RetrieveData } from '../../util/retrieve_data';
+import { RetrieveData } from '../../util/retrieveData';
 
 type Hoge = {
   fuga: string;
 };
 type Props = {
-  tier: string;
-  hoge?: Hoge;
+  data: RetrieveData;
 };
 
 type Paths = {
@@ -28,14 +27,15 @@ type Paths = {
   };
 };
 
-const Post: React.FC<Props> = (props) => {
+const Post: React.FC<Props> = ({ data }) => {
   return (
     <body>
       <title>galaxies</title>
       <Header />
       <div className={styles.centerpaper}>
-        <Pick />
+        <Pick singleRetrieve={data.singleRetrieve} />
         <Win />
+        {data.galaxiesmode?.toString()}
       </div>
     </body>
   );
@@ -44,20 +44,24 @@ const Post: React.FC<Props> = (props) => {
 export const getStaticProps = async ({ params }: Paths) => {
   const mode: string = params?.mode;
   //ギャラクシーデータ
-  const retrieve_data: RetrieveData = await retrieve_galaxies(mode);
+  const retrieveData: RetrieveData = await retrieve_galaxies(mode);
 
-  return {
-    props: { mode },
-  };
+  return retrieveData;
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [
       { params: { mode: '宝の山' } },
-      // See the "paths" section below
+      { params: { mode: 'ニーコバース' } },
+      { params: { mode: 'トレードセクター' } },
+      { params: { mode: '超高密度ギャラクシー' } },
+      { params: { mode: '準惑星' } },
+      { params: { mode: 'ギャラクティックアーモリー' } },
+      { params: { mode: 'ライラック星雲' } },
+      { params: { mode: '流星群' } },
     ],
-    fallback: false, // See the "fallback" section below
+    fallback: false,
   };
 };
 

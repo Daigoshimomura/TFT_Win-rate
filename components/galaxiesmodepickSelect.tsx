@@ -1,8 +1,13 @@
 import React from 'react';
 import styles from './galaxiesmodepick_select.module.css';
 import Link from 'next/link';
+import { SingleRetrieve } from '../util/retrieveData';
 
-const Pick: React.FC = () => {
+type Props = {
+  singleRetrieve?: SingleRetrieve[];
+};
+
+const Pick: React.FC<Props> = ({ singleRetrieve }) => {
   return (
     <div className={styles.galaxiesmode}>
       <div className={styles.galaxies}>

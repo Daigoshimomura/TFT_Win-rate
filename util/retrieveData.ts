@@ -4,7 +4,7 @@ export type RetrieveData = {
   //ギャラクシーモード
   galaxiesmode?: string;
   //単体データ
-  single_retrieve?: SingleRetrieve[];
+  singleRetrieve?: SingleRetrieve[];
 };
 
 export type SingleRetrieve = {
@@ -22,16 +22,4 @@ export type SingleRetrieve = {
   fourRankOrMore: number;
   //勝率5位以下
   fiveRankLessThan: number;
-};
-
-//入れる前の整理データ
-export type Singledata = {
-  //発動している特性
-  traitList?: string[];
-  //チャンピオン名
-  championList?: string[];
-  //勝率1位カウント
-  firstCount?: number;
-  //勝率4位以上カウント
-  fourRankOrMoreCount?: number;
 };

@@ -8,7 +8,6 @@ const Layout: React.FC = ({ children }) => {
   return (
     <>
       <Pick />
-      <Rank />
       <Game />
       <div className="min-h-screen">
         <main>{children}</main>

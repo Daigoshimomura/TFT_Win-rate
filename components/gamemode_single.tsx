@@ -2,6 +2,8 @@ import Reack from 'react';
 import styles from './gamemode.module.css';
 import modedate from '../public/json/galaxies.json';
 
+//初期画面のゲームモード単体
+
 const Singlegamemode: React.FC = () => {
   const elms = modedate.galaxies.map((elm, index) => {
     return (

@@ -1,9 +1,4 @@
-import {
-  RetrieveData,
-  SingleRetrieve,
-  RecordData,
-  Singledata,
-} from '../util/retrieve_data';
+import { RetrieveData, SingleRetrieve } from '../util/retrieveData';
 import { MatchData, PlayerDto, TraitDto, UnitDto } from '../util/match';
 import championdata from '../public/json/champions.json';
 import modedate from '../public/json/galaxies.json';
@@ -14,13 +9,7 @@ import { ParsedUrlQuery } from 'querystring';
 //apiをコールしてギャラクシーのデータを返すクラス
 
 //riotapikey
-const api_key = 'RGAPI-41603604-4995-41d7-af4b-bfb798b2c5bb';
-//マッチカウント数
-let matchcount: number = 0;
-//1位
-const firstrank: string = '1';
-//4位
-const fourranks: string[] = ['2', '3', '4'];
+const api_key = 'RGAPI-e739821b-afeb-4be9-842c-565134eafc4b';
 //特性種類
 const typeOrigin: string = 'origin';
 //特性種類
@@ -83,17 +72,18 @@ const retrieve_galaxies = async (paths: string) => {
     output.push(singleRetrieve);
   });
 
-  return {
-    mode: { mode },
-    singleRetrieve: { output },
+  const RetrieveData: RetrieveData = {
+    galaxiesmode: paths,
+    singleRetrieve: output,
   };
+
+  return RetrieveData;
 };
 
 //summonerのpuuidを返す
-//todo後から実装
 const callSummoners = async () => {
   //challengerのサモナーデータURL
-  const url = 'https://jp1.api.riotgames.com/tft/league/v1/master?';
+  const url = `${process.env.BASE_API_HOSTNAME}league/v1/challenger`;
   //apiからデータ取得
   const res = await fetch(url, {
     method: 'GET',
@@ -105,25 +95,25 @@ const callSummoners = async () => {
 
   const summoners = await res.json();
   //TODO テスト用
-  console.log(summoners);
-  const puuidList = [];
-  // 今回は5回分、回すようにする。
-  for (var i = 0; i < 5; i++) {
-    const summoner: string = summoners.entries[i].summonerName;
-    const puuid = await callPuuid(summoner);
-    await puuidList.push(puuid);
-    //TODO テスト用
-    console.log(puuidList);
-  }
+  console.log(summoners.summonerList);
+  const summonerList = [];
+  // 今回は1回分、回すようにする。
+  // for (var i = 0; i < 5; i++) {
+  const summonerName: string = summoners.summonerList[0].summonerName;
+  const puuid = await callPuuid(summonerName);
+  await summonerList.push(puuid);
+  //TODO テスト用
+  console.log(summonerList);
+  // }
 
-  return puuidList;
+  return summonerList;
 };
 
 //puuidを取得
 const callPuuid = async (summonerName: string) => {
   summonerName = encodeURI(summonerName);
   console.log(summonerName);
-  const url = `https://jp1.api.riotgames.com/tft/summoner/v1/summoners/by-name/${summonerName}`;
+  const url = `${process.env.BASE_API_HOSTNAME}summoner/v1/summoners/by-name/${summonerName}`;
   const res = await fetch(url, {
     method: 'GET',
     headers: {
@@ -139,12 +129,11 @@ const callPuuid = async (summonerName: string) => {
   return puuid;
 };
 
-//matchid取得例"puuid"iy2-J3GJWmXSO7l59Sxsm2yBL5f_Rvqh-NFPOoKave2IceHx-o9BpsXs61JomD32DZNbdNDqjApllA
 const callMatchid = async (puuidList: string[]) => {
   const matchidList: string[] = [];
   //puuidList分ループする。
   for (const puuid of puuidList) {
-    const url = `https://asia.api.riotgames.com/tft/match/v1/matches/by-puuid/${puuid}/ids?count=20`;
+    const url = `${process.env.BASE_API_HOSTASIANAME}match/v1/matches/by-puuid/${puuid}/ids?count=20`;
 
     const res = await fetch(url, {
       method: 'GET',
@@ -181,7 +170,7 @@ const callData = async (matchidList: string[], mode: string) => {
   //マッチデータを取得
   for (var i = 0; i < 80; i++) {
     const matchid: string = matchidList[i];
-    const url = `https://asia.api.riotgames.com/tft/match/v1/matches/${matchid}`;
+    const url = `${process.env.BASE_API_HOSTASIANAME}match/v1/matches/${matchid}`;
 
     const res = await fetch(url, {
       method: 'GET',

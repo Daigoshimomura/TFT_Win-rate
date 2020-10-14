@@ -1,6 +1,8 @@
 import Reack from 'react';
 import styles from './ranksummary.module.css';
 
+//初期画面の各ギャラクシー一覧チーム表示
+
 const Single: React.FC = () => {
   return (
     <div className={styles.summarytop}>

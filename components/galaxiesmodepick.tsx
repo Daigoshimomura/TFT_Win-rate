@@ -1,93 +1,27 @@
 import React from 'react';
 import styles from './galaxiesmodepick.module.css';
 import Link from 'next/link';
+import modedate from '../public/json/galaxies.json';
+
+//初期画面の各ギャラクシーモードのボタン遷移画像
+//ここのdiv修正。indexを見ないように変更
+type Props = {};
 
 const Pick: React.FC = () => {
-  return (
-    <div className={styles.galaxiesmode}>
+  const elms = modedate.galaxies.map((elm, index) => {
+    return (
       <div className={styles.galaxies}>
-        <Link href="/galaxies/宝の山">
+        <Link href={`/galaxies/${elm.janame}`}>
           <img
             className={styles.galaxiesimg}
-            src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
-            alt="mideamu Logo"
+            src={`/Galaxiesmode/${elm.key}.png`}
+            alt={elm.janame}
           />
         </Link>
       </div>
-      <div className={styles.galaxies}>
-        <Link href="/posts/galaxies">
-          <img
-            className={styles.galaxiesimg}
-            src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
-            alt="mideamu Logo"
-          />
-        </Link>
-      </div>
-      <div className={styles.galaxies}>
-        <Link href="/posts/galaxies">
-          <img
-            className={styles.galaxiesimg}
-            src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
-            alt="mideamu Logo"
-          />
-        </Link>
-      </div>
-      <div className={styles.galaxies}>
-        <Link href="/posts/galaxies">
-          <img
-            className={styles.galaxiesimg}
-            src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
-            alt="mideamu Logo"
-          />
-        </Link>
-      </div>
-      <div className={styles.galaxies}>
-        <Link href="/posts/galaxies">
-          <img
-            className={styles.galaxiesimg}
-            src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
-            alt="mideamu Logo"
-          />
-        </Link>
-      </div>
-      <div className={styles.galaxies}>
-        <Link href="/posts/galaxies">
-          <img
-            className={styles.galaxiesimg}
-            src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
-            alt="mideamu Logo"
-          />
-        </Link>
-      </div>
-      <div className={styles.galaxies}>
-        <Link href="/posts/galaxies">
-          <img
-            className={styles.galaxiesimg}
-            src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
-            alt="mideamu Logo"
-          />
-        </Link>
-      </div>
-      <div className={styles.galaxies}>
-        <Link href="/posts/galaxies">
-          <img
-            className={styles.galaxiesimg}
-            src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
-            alt="mideamu Logo"
-          />
-        </Link>
-      </div>
-      <div className={styles.galaxies}>
-        <Link href="/posts/galaxies">
-          <img
-            className={styles.galaxiesimg}
-            src="/Galaxiesmode/TFT3_GameVariation_StartingItems.png"
-            alt="mideamu Logo"
-          />
-        </Link>
-      </div>
-    </div>
-  );
+    );
+  });
+  return <div className={styles.galaxiesmode}>{elms}</div>;
 };
 
 export default Pick;

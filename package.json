@@ -10,7 +10,8 @@
     "deploy": "vercel --prod",
     "typecheck": "tsc",
     "test": "jest --runInBand",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "mock": "npx json-server --watch public/mock/mock.json --routes public/mock/routes.json --port 3001"
   },
   "dependencies": {
     "classnames": "2.2.6",
@@ -40,6 +41,7 @@
     "eslint-plugin-react": "^7.20.0",
     "husky": "^4.2.5",
     "jest": "^26.0.1",
+    "json-server": "^0.16.2",
     "lint-staged": "^10.2.9",
     "prettier": "^2.0.5",
     "stylelint": "^13.6.0",
