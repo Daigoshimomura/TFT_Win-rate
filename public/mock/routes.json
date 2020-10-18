@@ -1,6 +1,6 @@
 {
   "/league/v1/challenger": "/challenger",
   "/summoner/v1/summoners/by-name/hinekura": "/puuid",
-  "/match/v1/matches/by-puuid/8szTje4pQ4uCZyObH8IT3jMFs2K10-fe95XzY02mmtFq03rTrZ-XYxYubT46-kg3VlO71dBFX9pgdw/ids?count=20": "atchid",
+  "/match/v1/matches/by-puuid/8szTje4pQ4uCZyObH8IT3jMFs2K10-fe95XzY02mmtFq03rTrZ-XYxYubT46-kg3VlO71dBFX9pgdw/ids?count=20": "/matchid",
   "/match/v1/matches/JP1_250385777": "/matchDto"
 }

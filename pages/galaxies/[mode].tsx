@@ -6,17 +6,11 @@ import Win from '../../components/winrate';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { compileFunction } from 'vm';
-import championdata from '../../public/json/champions.json';
-import galaxiesdata from '../../public/json/galaxies.json';
-import traitsdata from '../../public/json/traits.json';
 import { match } from 'assert';
 import { type } from 'os';
 import retrieve_galaxies from '../../api/apicall';
 import { RetrieveData } from '../../util/retrieveData';
 
-type Hoge = {
-  fuga: string;
-};
 type Props = {
   data: RetrieveData;
 };
@@ -45,8 +39,13 @@ export const getStaticProps = async ({ params }: Paths) => {
   const mode: string = params?.mode;
   //ギャラクシーデータ
   const retrieveData: RetrieveData = await retrieve_galaxies(mode);
+  console.log(`getStaticProps=${retrieveData}`);
 
-  return retrieveData;
+  return {
+    props: {
+      data: retrieveData,
+    },
+  };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {

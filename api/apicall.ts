@@ -1,6 +1,5 @@
 import { RetrieveData, SingleRetrieve } from '../util/retrieveData';
 import { MatchData, PlayerDto, TraitDto, UnitDto } from '../util/match';
-import championdata from '../public/json/champions.json';
 import modedate from '../public/json/galaxies.json';
 import traitsdata from '../public/json/traits.json';
 import { GetStaticPropsContext } from 'next';
@@ -95,11 +94,11 @@ const callSummoners = async () => {
 
   const summoners = await res.json();
   //TODO テスト用
-  console.log(summoners.summonerList);
+  console.log(summoners);
   const summonerList = [];
   // 今回は1回分、回すようにする。
   // for (var i = 0; i < 5; i++) {
-  const summonerName: string = summoners.summonerList[0].summonerName;
+  const summonerName: string = summoners[0].entries.summonerName;
   const puuid = await callPuuid(summonerName);
   await summonerList.push(puuid);
   //TODO テスト用
@@ -124,7 +123,7 @@ const callPuuid = async (summonerName: string) => {
 
   const json = await res.json();
 
-  const puuid = json.puuid;
+  const puuid = json[0].puuid;
 
   return puuid;
 };
@@ -144,7 +143,11 @@ const callMatchid = async (puuidList: string[]) => {
     });
 
     const json: string[] = await res.json();
-    if (json != undefined) {
+    if (matchidList.length === 0) {
+      for (const data of json) {
+        matchidList.push(data);
+      }
+    } else if (json != undefined) {
       //同じmatchidを追加しないようにしている。
       const jsonList: string[] = json.filter(function (element) {
         for (var i = 0; i < matchidList.length; i++) {
@@ -168,89 +171,88 @@ const callData = async (matchidList: string[], mode: string) => {
   const matchDataList: MatchData[] = [];
   const playerDtoList: PlayerDto[] = [];
   //マッチデータを取得
-  for (var i = 0; i < 80; i++) {
-    const matchid: string = matchidList[i];
-    const url = `${process.env.BASE_API_HOSTASIANAME}match/v1/matches/${matchid}`;
+  // for (let i = 0; i < 1; i++) {
+  const matchid: string = matchidList[0];
+  const url = `${process.env.BASE_API_HOSTASIANAME}match/v1/matches/${matchid}`;
 
-    const res = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'X-Riot-Token': api_key,
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-    });
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'X-Riot-Token': api_key,
+      'Content-Type': 'application/json;charset=UTF-8',
+    },
+  });
 
-    const json = await res.json();
-
-    //ギャラクシーモードを判定してそのjsondataのみ入れる。
-    if (json.info.participants.game_variation === mode) {
-      for (const participants of json.info.participants) {
-        const traiDtoList: TraitDto[] = [];
-        //特性を取得しtraiDtoListに格納する。
-        for (const traitdata of participants.traits) {
-          const type = () => {
-            for (const traits of traitsdata) {
-              if (traits.key == traitdata.name) return traits.type;
-            }
-            return 'タイプが存在しない';
-          };
-          const traitDto: TraitDto = {
-            name: traitdata.name,
-            num_units: traitdata.num_units,
-            tier_current: traitdata.tier_current,
-            type: type(),
-          };
-          traiDtoList.push(traitDto);
-        }
-
-        //チャンピオンを取得しunitsDtoListに格納する。
-        const unitsDtoList: UnitDto[] = [];
-        for (const unitdata of participants.units) {
-          const unitDto: UnitDto = {
-            champion: unitdata.character_id,
-            rarity: unitdata.rarity,
-            tier: unitdata.tier,
-          };
-          unitsDtoList.push(unitDto);
-        }
-        //console.log('前');
-        //console.log(traiDtoList);
-        //発動している特性ランクかつユニット数の大きい順に並べ替える
-        traiDtoList.sort(function (a, b) {
-          if (a.tier_current > b.tier_current) return -1;
-          if (a.tier_current > b.tier_current) return 1;
-          if (a.num_units > b.num_units) return -1;
-          if (a.num_units < b.num_units) return 1;
-          return 0;
-        });
-        //チャンピオンをレアリティ順に並び替え
-        unitsDtoList.sort(function (a, b) {
-          if (a.rarity > b.rarity) return -1;
-          if (a.rarity > b.rarity) return 1;
-          return 0;
-        });
-        // console.log('後ろ');
-        // console.log(traiDtoList);
-
-        //チーム名
-        const team_name: string = teamName(traiDtoList);
-        const playerDto: PlayerDto = {
-          traiDtoList: traiDtoList,
-          unitList: unitsDtoList,
-          rank: participants.placement,
-          teamName: team_name,
+  const json = await res.json();
+  console.log(`callData=${json[0].info.game_variation}`);
+  console.log(`mode=${mode}`);
+  //ギャラクシーモードを判定してそのjsondataのみ入れる。
+  if (json[0].info.game_variation === mode) {
+    for (const participants of json[0].info.participants) {
+      const traiDtoList: TraitDto[] = [];
+      //特性を取得しtraiDtoListに格納する。
+      for (const traitdata of participants.traits) {
+        const type = () => {
+          for (const traits of traitsdata) {
+            if (traits.key == traitdata.name) return traits.type;
+          }
+          return 'タイプが存在しない';
         };
-
-        playerDtoList.push(playerDto);
+        const traitDto: TraitDto = {
+          name: traitdata.name,
+          num_units: traitdata.num_units,
+          tier_current: traitdata.tier_current,
+          type: type(),
+        };
+        traiDtoList.push(traitDto);
       }
 
-      const matchData: MatchData = {
-        galaxiesmode: json.info.game_variation,
-        playerDtoList: playerDtoList,
+      //チャンピオンを取得しunitsDtoListに格納する。
+      const unitsDtoList: UnitDto[] = [];
+      for (const unitdata of participants.units) {
+        const unitDto: UnitDto = {
+          champion: unitdata.character_id,
+          rarity: unitdata.rarity,
+          tier: unitdata.tier,
+        };
+        unitsDtoList.push(unitDto);
+      }
+      //発動している特性ランクかつユニット数の大きい順に並べ替える
+      traiDtoList.sort(function (a, b) {
+        if (a.tier_current > b.tier_current) return -1;
+        if (a.tier_current > b.tier_current) return 1;
+        if (a.num_units > b.num_units) return -1;
+        if (a.num_units < b.num_units) return 1;
+        return 0;
+      });
+      //チャンピオンをレアリティ順に並び替え
+      unitsDtoList.sort(function (a, b) {
+        if (a.rarity > b.rarity) return -1;
+        if (a.rarity > b.rarity) return 1;
+        return 0;
+      });
+
+      //チーム名
+      const team_name: string = teamName(traiDtoList);
+      const playerDto: PlayerDto = {
+        traiDtoList: traiDtoList,
+        unitList: unitsDtoList,
+        rank: participants.placement,
+        teamName: team_name,
       };
-      matchDataList.push(matchData);
+
+      playerDtoList.push(playerDto);
     }
+
+    const matchData: MatchData = {
+      galaxiesmode: json[0].info.game_variation,
+      playerDtoList: playerDtoList,
+    };
+    console.log(`matchData=${matchData}`);
+    matchDataList.push(matchData);
   }
+  // }
+  console.log(`matchDataList=${matchDataList}`);
   return matchDataList;
 };
 

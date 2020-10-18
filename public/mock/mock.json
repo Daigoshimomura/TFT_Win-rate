@@ -5,19 +5,7 @@
       "leagueId": "4bfd105f-a4f7-35ed-9618-b6c55489dbd2",
       "queue": "RANKED_TFT",
       "name": "Rengar's Marksmen",
-      "summonerList": [
-        {
-          "summonerId": "3NaagsPG9wr27vlS64zdvzzUPaxnfm-ooOomJwXjbPeZLA",
-          "summonerName": "hinekura",
-          "leaguePoints": 613,
-          "rank": "I",
-          "wins": 30,
-          "losses": 112,
-          "veteran": false,
-          "inactive": false,
-          "freshBlood": true,
-          "hotStreak": false
-        },
+      "entries": 
         {
           "summonerId": "3NaagsPG9wr27vlS64zdvzzUPaxnfm-ooOomJwXjbPeZLA",
           "summonerName": "hinekura",
@@ -30,7 +18,6 @@
           "freshBlood": true,
           "hotStreak": false
         }
-      ]
     }
   ],
   "puuid": [
@@ -44,7 +31,7 @@
       "summonerLevel": 313
     }
   ],
-  "matchid": [["JP1_250385777"]],
+  "matchid": ["JP1_250385777"],
   "matchDto": [
     {
       "metadata": {
