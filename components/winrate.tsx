@@ -1,8 +1,15 @@
 import Reack from 'react';
 import styles from './winrate.module.css';
 import Single from './winrate_single';
+import { SingleRetrieve } from '../util/retrieveData';
 
-const Winrate: React.FC = () => {
+//galaxies画面のチャンピオン表示
+
+type Props = {
+  singleRetrieve?: SingleRetrieve[];
+};
+
+const Winrate: React.FC = (singleRetrieve) => {
   return (
     <div className={styles.winrate}>
       <Single />

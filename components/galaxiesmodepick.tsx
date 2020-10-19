@@ -5,7 +5,6 @@ import modedate from '../public/json/galaxies.json';
 
 //初期画面の各ギャラクシーモードのボタン遷移画像
 //ここのdiv修正。indexを見ないように変更
-type Props = {};
 
 const Pick: React.FC = () => {
   const elms = modedate.galaxies.map((elm, index) => {

@@ -27,9 +27,8 @@ const Post: React.FC<Props> = ({ data }) => {
       <title>galaxies</title>
       <Header />
       <div className={styles.centerpaper}>
-        <Pick singleRetrieve={data.singleRetrieve} />
-        <Win />
-        {data.galaxiesmode?.toString()}
+        <Pick retrieveData={data} />
+        <Win singleRetrieve={data.singleRetrieve} />
       </div>
     </body>
   );
