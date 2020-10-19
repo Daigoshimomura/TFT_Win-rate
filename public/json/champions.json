@@ -21,7 +21,7 @@
     "traits": ["Celestial", "Sniper"]
   },
   {
-    "name": "Aurelion Sol",
+    "name": "AurelionSol",
     "janame": "オレリオン・ソル",
     "championId": "TFT3_AurelionSol",
     "cost": 5,
@@ -133,7 +133,7 @@
     "traits": ["Star Guardian", "Paragon"]
   },
   {
-    "name": "Jarvan IV",
+    "name": "JarvanIV",
     "janame": "ジャーヴァンⅣ",
     "championId": "TFT3_JarvanIV",
     "cost": 1,
@@ -168,7 +168,7 @@
     "traits": ["Dark Star", "Mystic"]
   },
   {
-    "name": "Kog'Maw",
+    "name": "KogMaw",
     "janame": "コグ＝マウ",
     "championId": "TFT3_KogMaw",
     "cost": 2,
@@ -203,7 +203,7 @@
     "traits": ["Rebel", "Brawler"]
   },
   {
-    "name": "Master Yi",
+    "name": "MasterYi",
     "janame": "マスター・イー",
     "championId": "TFT3_MasterYi",
     "cost": 3,
@@ -308,7 +308,7 @@
     "traits": ["Chrono", "Mana-Reaver"]
   },
   {
-    "name": "Twisted Fate",
+    "name": "TwistedFate",
     "janame": "ツイステッドフェイト",
     "championId": "TFT3_TwistedFate",
     "cost": 1,

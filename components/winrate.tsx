@@ -9,14 +9,10 @@ type Props = {
   singleRetrieve?: SingleRetrieve[];
 };
 
-const Winrate: React.FC = (singleRetrieve) => {
+const Winrate: React.FC<Props> = ({ singleRetrieve }) => {
   return (
     <div className={styles.winrate}>
-      <Single />
-      <Single />
-      <Single />
-      <Single />
-      <Single />
+      <Single singleRetrieve={singleRetrieve} />
     </div>
   );
 };

@@ -38,8 +38,6 @@ export const getStaticProps = async ({ params }: Paths) => {
   const mode: string = params?.mode;
   //ギャラクシーデータ
   const retrieveData: RetrieveData = await retrieve_galaxies(mode);
-  console.log(`getStaticProps=${retrieveData}`);
-
   return {
     props: {
       data: retrieveData,

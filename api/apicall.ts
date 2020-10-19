@@ -2,6 +2,7 @@ import { RetrieveData, SingleRetrieve } from '../util/retrieveData';
 import { MatchData, PlayerDto, TraitDto, UnitDto } from '../util/match';
 import modedate from '../public/json/galaxies.json';
 import traitsdata from '../public/json/traits.json';
+import championdata from '../public/json/champions.json';
 import { GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 
@@ -18,8 +19,6 @@ const retrieve_galaxies = async (paths: string) => {
   const puuidList: string[] = await callSummoners();
 
   const matchidList: string[] = await callMatchid(puuidList);
-  //TODO テスト用
-  console.log(matchidList);
 
   //取得するモードを判別する
   const mode = fetchMode(paths);
@@ -63,11 +62,11 @@ const retrieve_galaxies = async (paths: string) => {
   const output: SingleRetrieve[] = [];
   singleRetrieveList.forEach((singleRetrieve) => {
     singleRetrieve.firstPlace =
-      singleRetrieve.firstPlace / singleRetrieve.totalCount;
+      (singleRetrieve.firstPlace / singleRetrieve.totalCount) * 100;
     singleRetrieve.fourRankOrMore =
-      singleRetrieve.fourRankOrMore / singleRetrieve.totalCount;
+      (singleRetrieve.fourRankOrMore / singleRetrieve.totalCount) * 100;
     singleRetrieve.fiveRankLessThan =
-      singleRetrieve.fiveRankLessThan / singleRetrieve.totalCount;
+      (singleRetrieve.fiveRankLessThan / singleRetrieve.totalCount) * 100;
     output.push(singleRetrieve);
   });
 
@@ -133,7 +132,6 @@ const callMatchid = async (puuidList: string[]) => {
   //puuidList分ループする。
   for (const puuid of puuidList) {
     const url = `${process.env.BASE_API_HOSTASIANAME}match/v1/matches/by-puuid/${puuid}/ids?count=20`;
-
     const res = await fetch(url, {
       method: 'GET',
       headers: {
@@ -141,7 +139,6 @@ const callMatchid = async (puuidList: string[]) => {
         'Content-Type': 'application/json;charset=UTF-8',
       },
     });
-
     const json: string[] = await res.json();
     if (matchidList.length === 0) {
       for (const data of json) {
@@ -184,24 +181,28 @@ const callData = async (matchidList: string[], mode: string) => {
   });
 
   const json = await res.json();
-  console.log(`callData=${json[0].info.game_variation}`);
-  console.log(`mode=${mode}`);
   //ギャラクシーモードを判定してそのjsondataのみ入れる。
   if (json[0].info.game_variation === mode) {
     for (const participants of json[0].info.participants) {
       const traiDtoList: TraitDto[] = [];
       //特性を取得しtraiDtoListに格納する。
-      for (const traitdata of participants.traits) {
+      for (const traitList of participants.traits) {
         const type = () => {
-          for (const traits of traitsdata) {
-            if (traits.key == traitdata.name) return traits.type;
+          for (const trait of traitsdata) {
+            if (trait.key === traitList.name) return trait.type;
           }
-          return 'タイプが存在しない';
+          return traitList.name;
+        };
+        const name = () => {
+          for (const trait of traitsdata) {
+            if (trait.key === traitList.name) return trait.name;
+          }
+          return traitList.name;
         };
         const traitDto: TraitDto = {
-          name: traitdata.name,
-          num_units: traitdata.num_units,
-          tier_current: traitdata.tier_current,
+          name: name(),
+          num_units: traitList.num_units,
+          tier_current: traitList.tier_current,
           type: type(),
         };
         traiDtoList.push(traitDto);
@@ -209,9 +210,17 @@ const callData = async (matchidList: string[], mode: string) => {
 
       //チャンピオンを取得しunitsDtoListに格納する。
       const unitsDtoList: UnitDto[] = [];
+
       for (const unitdata of participants.units) {
+        const championname = () => {
+          for (const champion of championdata) {
+            if (champion.championId === unitdata.character_id)
+              return champion.name;
+          }
+          return unitdata.character_id;
+        };
         const unitDto: UnitDto = {
-          champion: unitdata.character_id,
+          champion: championname(),
           rarity: unitdata.rarity,
           tier: unitdata.tier,
         };
@@ -248,11 +257,11 @@ const callData = async (matchidList: string[], mode: string) => {
       galaxiesmode: json[0].info.game_variation,
       playerDtoList: playerDtoList,
     };
-    console.log(`matchData=${matchData}`);
+
     matchDataList.push(matchData);
   }
   // }
-  console.log(`matchDataList=${matchDataList}`);
+
   return matchDataList;
 };
 
