@@ -92,25 +92,20 @@ const callSummoners = async () => {
   });
 
   const summoners = await res.json();
-  //TODO テスト用
-  console.log(summoners);
+
   const summonerList = [];
   // 今回は1回分、回すようにする。
   // for (var i = 0; i < 5; i++) {
   const summonerName: string = summoners[0].entries.summonerName;
   const puuid = await callPuuid(summonerName);
   await summonerList.push(puuid);
-  //TODO テスト用
-  console.log(summonerList);
   // }
-
   return summonerList;
 };
 
 //puuidを取得
 const callPuuid = async (summonerName: string) => {
   summonerName = encodeURI(summonerName);
-  console.log(summonerName);
   const url = `${process.env.BASE_API_HOSTNAME}summoner/v1/summoners/by-name/${summonerName}`;
   const res = await fetch(url, {
     method: 'GET',
@@ -191,13 +186,15 @@ const callData = async (matchidList: string[], mode: string) => {
           for (const trait of traitsdata) {
             if (trait.key === traitList.name) return trait.type;
           }
+          console.log(traitList.name);
           return traitList.name;
         };
         const name = () => {
           for (const trait of traitsdata) {
             if (trait.key === traitList.name) return trait.name;
           }
-          return traitList.name;
+          console.log(traitList.name);
+          return '当てはまらない';
         };
         const traitDto: TraitDto = {
           name: name(),
@@ -205,6 +202,8 @@ const callData = async (matchidList: string[], mode: string) => {
           tier_current: traitList.tier_current,
           type: type(),
         };
+        console.log(`traitList=${traitList.num_units}`);
+        console.log(`traitDto=${traitDto.tier_current}`);
         traiDtoList.push(traitDto);
       }
 

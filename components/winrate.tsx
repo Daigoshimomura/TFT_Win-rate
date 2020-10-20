@@ -6,7 +6,7 @@ import { SingleRetrieve } from '../util/retrieveData';
 //galaxies画面のチャンピオン表示
 
 type Props = {
-  singleRetrieve?: SingleRetrieve[];
+  singleRetrieve: SingleRetrieve[];
 };
 
 const Winrate: React.FC<Props> = ({ singleRetrieve }) => {

@@ -2,9 +2,9 @@
 
 export type RetrieveData = {
   //ギャラクシーモード
-  galaxiesmode?: string;
+  galaxiesmode: string;
   //単体データ
-  singleRetrieve?: SingleRetrieve[];
+  singleRetrieve: SingleRetrieve[];
 };
 
 export type SingleRetrieve = {

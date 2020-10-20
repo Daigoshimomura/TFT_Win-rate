@@ -3,11 +3,11 @@ import styles from './winrate.module.css';
 import { SingleRetrieve } from '../util/retrieveData';
 
 type Props = {
-  singleRetrieve?: SingleRetrieve[];
+  singleRetrieve: SingleRetrieve[];
 };
 
 const Single: React.FC<Props> = ({ singleRetrieve }) => {
-  const elms = singleRetrieve?.map((elm) => {
+  const elms = singleRetrieve.map((elm) => {
     const traitsList = elm.traitList?.map((traits) => {
       return (
         <img
