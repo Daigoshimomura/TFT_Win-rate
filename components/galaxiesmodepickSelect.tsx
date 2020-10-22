@@ -26,7 +26,7 @@ const Pick: React.FC<Props> = ({ retrieveData }) => {
       );
     }
     return (
-      <div className={styles.galaxies}>
+      <div key={index} className={styles.galaxies}>
         <Link href={`/galaxies/${elm.janame}`}>
           <img
             className={styles.galaxiesimg}

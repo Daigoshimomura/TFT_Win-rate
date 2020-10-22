@@ -1,4 +1,4 @@
-import Reack from 'react';
+import React from 'react';
 import styles from './gamemode.module.css';
 import modedate from '../public/json/galaxies.json';
 

@@ -1,4 +1,4 @@
-import Reack from 'react';
+import React from 'react';
 import styles from './winrate.module.css';
 import { SingleRetrieve } from '../util/retrieveData';
 
@@ -7,19 +7,21 @@ type Props = {
 };
 
 const Single: React.FC<Props> = ({ singleRetrieve }) => {
-  const elms = singleRetrieve.map((elm) => {
-    const traitsList = elm.traitList?.map((traits) => {
+  const elms = singleRetrieve.map((elm, index) => {
+    const traitsList = elm.traitList?.map((traits, index) => {
       return (
         <img
+          key={index}
           className={styles.traitsimg}
           src={`/traits/${traits}.png`}
           alt={traits}
         />
       );
     });
-    const championsList = elm.champion?.map((champion) => {
+    const championsList = elm.champion?.map((champion, index) => {
       return (
         <img
+          key={index}
           className={styles.championsimg}
           src={`/champions/${champion}.png`}
           alt={champion}
@@ -27,7 +29,7 @@ const Single: React.FC<Props> = ({ singleRetrieve }) => {
       );
     });
     return (
-      <div className={styles.block}>
+      <div key={index} className={styles.block}>
         <div className={styles.gap}></div>
         <div className={styles.titleline}>
           <div className={styles.titles}>

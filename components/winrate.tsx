@@ -1,4 +1,4 @@
-import Reack from 'react';
+import React from 'react';
 import styles from './winrate.module.css';
 import Single from './winrateSingle';
 import { SingleRetrieve } from '../util/retrieveData';

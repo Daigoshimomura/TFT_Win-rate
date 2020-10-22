@@ -3,7 +3,7 @@ import Header from '../../components/header';
 import Pick from '../../components/galaxiesmodepickSelect';
 import styles from './galaxies.module.css';
 import Win from '../../components/winrate';
-import { GetStaticProps, GetStaticPaths } from 'next';
+import { GetStaticPaths } from 'next';
 import retrieveGalaxies from '../../api/apicall';
 import { RetrieveData } from '../../util/retrieveData';
 

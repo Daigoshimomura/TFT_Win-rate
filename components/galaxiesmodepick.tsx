@@ -9,7 +9,7 @@ import modedate from '../public/json/galaxies.json';
 const Pick: React.FC = () => {
   const elms = modedate.galaxies.map((elm, index) => {
     return (
-      <div className={styles.galaxies}>
+      <div key={index} className={styles.galaxies}>
         <Link href={`/galaxies/${elm.janame}`}>
           <img
             className={styles.galaxiesimg}
