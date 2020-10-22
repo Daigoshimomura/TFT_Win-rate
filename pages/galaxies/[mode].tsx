@@ -4,10 +4,6 @@ import Pick from '../../components/galaxiesmodepickSelect';
 import styles from './galaxies.module.css';
 import Win from '../../components/winrate';
 import { GetStaticProps, GetStaticPaths } from 'next';
-import { ParsedUrlQuery } from 'querystring';
-import { compileFunction } from 'vm';
-import { match } from 'assert';
-import { type } from 'os';
 import retrieve_galaxies from '../../api/apicall';
 import { RetrieveData } from '../../util/retrieveData';
 

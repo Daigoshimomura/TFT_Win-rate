@@ -3,8 +3,6 @@ import { MatchData, PlayerDto, TraitDto, UnitDto } from '../util/match';
 import modedate from '../public/json/galaxies.json';
 import traitsdata from '../public/json/traits.json';
 import championdata from '../public/json/champions.json';
-import { GetStaticPropsContext } from 'next';
-import { ParsedUrlQuery } from 'querystring';
 
 //apiをコールしてギャラクシーのデータを返すクラス
 

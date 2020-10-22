@@ -1,19 +1,9 @@
 import React from 'react';
 import styles from './header.module.css';
-var folderPath = 'public/Galaxiesmode';
-
-//const obj = ['hoge', 'fuga', 'hogefuga'];
 
 const Header: React.FC = () => {
-  //   const loop = () => {
-  //     return obj.map((obj) => {
-  //       return <div>{obj}</div>;
-  //     });
-  //   };
-
   return (
     <header>
-      {/* {loop()} */}
       <div className={styles.header}>
         <i className={styles.title}>TFT</i>
         <p className={styles.headerunder}>
