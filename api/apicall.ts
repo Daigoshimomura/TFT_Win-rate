@@ -186,14 +186,12 @@ const callData = async (matchidList: string[], mode: string) => {
           for (const trait of traitsdata) {
             if (trait.key === traitList.name) return trait.type;
           }
-          console.log(traitList.name);
           return traitList.name;
         };
         const name = () => {
           for (const trait of traitsdata) {
             if (trait.key === traitList.name) return trait.name;
           }
-          console.log(traitList.name);
           return '当てはまらない';
         };
         const traitDto: TraitDto = {
@@ -202,8 +200,6 @@ const callData = async (matchidList: string[], mode: string) => {
           tier_current: traitList.tier_current,
           type: type(),
         };
-        console.log(`traitList=${traitList.num_units}`);
-        console.log(`traitDto=${traitDto.tier_current}`);
         traiDtoList.push(traitDto);
       }
 
@@ -260,7 +256,6 @@ const callData = async (matchidList: string[], mode: string) => {
     matchDataList.push(matchData);
   }
   // }
-
   return matchDataList;
 };
 

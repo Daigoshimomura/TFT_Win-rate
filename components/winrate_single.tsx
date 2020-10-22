@@ -49,8 +49,8 @@ const Single: React.FC<Props> = ({ singleRetrieve }) => {
           <div className={styles.traits}>{traitsList}</div>
           <div className={styles.champions}>{championsList}</div>
           <div className={styles.rate}>
-            <span className={styles.onerate}>{elm.firstPlace}</span>
-            <span className={styles.fourrate}>{elm.fourRankOrMore}</span>
+            <span className={styles.onerate}>{elm.firstPlace}％</span>
+            <span className={styles.fourrate}>{elm.fourRankOrMore}％</span>
           </div>
         </div>
       </div>

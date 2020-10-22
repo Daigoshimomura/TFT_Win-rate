@@ -9,11 +9,11 @@
   margin: 0px;
 }
 
-.gap{
+.gap {
   height: 10px;
 }
 
-.titleline{
+.titleline {
   height: 20px;
   background-color: white;
   display: flex;
@@ -39,22 +39,22 @@
   display: flex;
   margin-right: 20px;
 }
-.four{
+.four {
   margin: 0px;
 }
 .yajirusi {
   width: 20px;
 }
 
-
 .content {
   height: 60px;
   display: flex;
-  margin-top: 10px
+  margin-top: 10px;
 }
 
-.traits{
-  margin: auto auto auto 10px;
+.traits {
+  width: 350px;
+  margin: auto 50px auto 10px;
 }
 .traitsimg {
   width: 50px;
@@ -63,8 +63,8 @@
 }
 
 .champions {
-  width: 500px;
-  margin:auto auto auto 60px;
+  width: 495px;
+  margin: auto 60px auto 0px;
 }
 .championsimg {
   width: 50px;
@@ -73,12 +73,13 @@
 }
 
 .rate {
-  margin: auto 30px auto 40px;
+  margin: auto 10px auto 35px;
 }
 .onerate {
   margin: auto;
 }
 .fourrate {
   margin: auto;
-  margin-left: 20px;
+  margin-left: 35px;
+  margin-right: 10px;
 }
