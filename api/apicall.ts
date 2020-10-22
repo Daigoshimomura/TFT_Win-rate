@@ -7,19 +7,19 @@ import championdata from '../public/json/champions.json';
 //apiをコールしてギャラクシーのデータを返すクラス
 
 //riotapikey
-const api_key = 'RGAPI-e739821b-afeb-4be9-842c-565134eafc4b';
+const api_key = process.env.API_KEY ?? '';
 //特性種類
-const typeOrigin: string = 'origin';
+const typeOrigin = 'origin';
 //特性種類
-const typeClass: string = 'class';
+const typeClass = 'class';
 
-const retrieve_galaxies = async (paths: string) => {
+const retrieveGalaxies = async (paths: string): Promise<RetrieveData> => {
   const puuidList: string[] = await callSummoners();
 
   const matchidList: string[] = await callMatchid(puuidList);
 
   //取得するモードを判別する
-  const mode = fetchMode(paths);
+  const mode = trancerateMode(paths);
 
   const matchDataList = await callData(matchidList, mode);
 
@@ -69,16 +69,14 @@ const retrieve_galaxies = async (paths: string) => {
     output.push(singleRetrieve);
   });
 
-  const RetrieveData: RetrieveData = {
+  return {
     galaxiesmode: paths,
     singleRetrieve: output,
   };
-
-  return RetrieveData;
 };
 
 //summonerのpuuidを返す
-const callSummoners = async () => {
+const callSummoners = async (): Promise<string[]> => {
   //challengerのサモナーデータURL
   const url = `${process.env.BASE_API_HOSTNAME}league/v1/challenger`;
   //apiからデータ取得
@@ -103,7 +101,7 @@ const callSummoners = async () => {
 };
 
 //puuidを取得
-const callPuuid = async (summonerName: string) => {
+const callPuuid = async (summonerName: string): Promise<string> => {
   summonerName = encodeURI(summonerName);
   const url = `${process.env.BASE_API_HOSTNAME}summoner/v1/summoners/by-name/${summonerName}`;
   const res = await fetch(url, {
@@ -121,7 +119,7 @@ const callPuuid = async (summonerName: string) => {
   return puuid;
 };
 
-const callMatchid = async (puuidList: string[]) => {
+const callMatchid = async (puuidList: string[]): Promise<string[]> => {
   const matchidList: string[] = [];
   //puuidList分ループする。
   for (const puuid of puuidList) {
@@ -141,7 +139,7 @@ const callMatchid = async (puuidList: string[]) => {
     } else if (json != undefined) {
       //同じmatchidを追加しないようにしている。
       const jsonList: string[] = json.filter(function (element) {
-        for (var i = 0; i < matchidList.length; i++) {
+        for (let i = 0; i < matchidList.length; i++) {
           if (matchidList[i] === element) {
             return false;
           }
@@ -158,7 +156,10 @@ const callMatchid = async (puuidList: string[]) => {
 };
 
 //data取得
-const callData = async (matchidList: string[], mode: string) => {
+const callData = async (
+  matchidList: string[],
+  mode: string
+): Promise<MatchData[]> => {
   const matchDataList: MatchData[] = [];
   const playerDtoList: PlayerDto[] = [];
   //マッチデータを取得
@@ -256,8 +257,8 @@ const callData = async (matchidList: string[], mode: string) => {
   return matchDataList;
 };
 
-//モード判別
-const fetchMode = (paths: string) => {
+//モードを日本語から英語にトランスレートする
+const trancerateMode = (paths: string) => {
   for (const galaxies of modedate.galaxies) {
     if (galaxies.janame === paths) return galaxies.key;
   }
@@ -267,11 +268,11 @@ const fetchMode = (paths: string) => {
 //チーム名を決める
 const teamName = (traiDtoList: TraitDto[]) => {
   const team_name: string =
-    single_name(traiDtoList, typeOrigin) + single_name(traiDtoList, typeClass);
+    singleName(traiDtoList, typeOrigin) + singleName(traiDtoList, typeClass);
   return team_name;
 };
 
-const single_name = (traiDtoList: TraitDto[], type: string) => {
+const singleName = (traiDtoList: TraitDto[], type: string) => {
   for (const traiDto of traiDtoList) {
     if (traiDto.type === type) {
       return traiDto.name;
@@ -281,4 +282,4 @@ const single_name = (traiDtoList: TraitDto[], type: string) => {
   return '';
 };
 
-export default retrieve_galaxies;
+export default retrieveGalaxies;

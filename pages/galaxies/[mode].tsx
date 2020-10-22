@@ -4,7 +4,7 @@ import Pick from '../../components/galaxiesmodepickSelect';
 import styles from './galaxies.module.css';
 import Win from '../../components/winrate';
 import { GetStaticProps, GetStaticPaths } from 'next';
-import retrieve_galaxies from '../../api/apicall';
+import retrieveGalaxies from '../../api/apicall';
 import { RetrieveData } from '../../util/retrieveData';
 
 type Props = {
@@ -33,7 +33,7 @@ const Post: React.FC<Props> = ({ data }) => {
 export const getStaticProps = async ({ params }: Paths) => {
   const mode: string = params?.mode;
   //ギャラクシーデータ
-  const retrieveData: RetrieveData = await retrieve_galaxies(mode);
+  const retrieveData: RetrieveData = await retrieveGalaxies(mode);
   return {
     props: {
       data: retrieveData,
