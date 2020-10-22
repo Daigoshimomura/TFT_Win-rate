@@ -22,9 +22,9 @@ export type TraitDto = {
   //特性名
   name: string;
   //特性のユニット数
-  num_units: number;
+  numUnits: number;
   //発動している特性のランク
-  tier_current: number;
+  tierCurrent: number;
   //type
   type: string;
 };

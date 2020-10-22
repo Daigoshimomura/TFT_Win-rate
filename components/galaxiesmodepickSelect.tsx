@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './galaxiesmodepick_select.module.css';
+import styles from './galaxiesmodepickSelect.module.css';
 import Link from 'next/link';
 import { RetrieveData } from '../util/retrieveData';
 import modedate from '../public/json/galaxies.json';

@@ -31,7 +31,7 @@ const Single: React.FC<Props> = ({ singleRetrieve }) => {
         <div className={styles.gap}></div>
         <div className={styles.titleline}>
           <div className={styles.titles}>
-            <p className={styles.title}>{elm.teamName}</p>
+            <p className={styles.title}>{elm.teamName?.toString()}</p>
           </div>
           <div className={styles.ranks}>
             <p className={styles.one}>1位</p>

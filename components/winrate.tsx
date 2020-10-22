@@ -1,6 +1,6 @@
 import Reack from 'react';
 import styles from './winrate.module.css';
-import Single from './winrate_single';
+import Single from './winrateSingle';
 import { SingleRetrieve } from '../util/retrieveData';
 
 //galaxies画面のチャンピオン表示

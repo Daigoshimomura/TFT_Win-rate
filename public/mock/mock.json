@@ -31,7 +31,7 @@
       "summonerLevel": 313
     }
   ],
-  "matchid": ["JP1_250385777"],
+  "matchid": ["JP1_250385777","JP1_250385771"],
   "matchDto": [
     {
       "metadata": {
@@ -51,7 +51,7 @@
       "info": {
         "game_datetime": 1592748742349,
         "game_length": 2359.85791015625,
-        "game_variation": "TFT3_GameVariation_Bonanza",
+        "game_variation": "TFT3_GameVariation_FreeNeekos",
         "game_version": "Version 10.12.325.6222 (Jun 18 2020/19:34:47) [PUBLIC] <Releases/10.12>",
         "participants": [
           {
@@ -1156,7 +1156,5 @@
         "tft_set_number": 3
       }
     }
-  ],
-  "hoge": {},
-  "fuga": {}
+  ]
 }

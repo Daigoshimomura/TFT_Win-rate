@@ -1,5 +1,5 @@
 import Reack from 'react';
-import Single from './summary_single';
+import Single from './summarySingle';
 import styles from './ranksummary.module.css';
 
 //データベースがないと表示が難しい。

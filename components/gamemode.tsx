@@ -1,6 +1,6 @@
 import Reack from 'react';
 import styles from './gamemode.module.css';
-import Game from './gamemode_single';
+import Game from './gamemodeSingle';
 
 //初期画面のゲームモード
 
