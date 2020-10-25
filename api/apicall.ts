@@ -78,7 +78,7 @@ const retrieveGalaxies = async (paths: string): Promise<RetrieveData> => {
 //summonerのpuuidを返す
 const callSummoners = async (): Promise<string[]> => {
   //challengerのサモナーデータURL
-  const url = `${process.env.BASE_API_HOSTNAME}league/v1/challenger`;
+  const url = `${process.env.BASE_API_HOST_JAPAN}league/v1/challenger`;
   //apiからデータ取得
   const res = await fetch(url, {
     method: 'GET',
@@ -103,7 +103,7 @@ const callSummoners = async (): Promise<string[]> => {
 //puuidを取得
 const callPuuid = async (summonerName: string): Promise<string> => {
   summonerName = encodeURI(summonerName);
-  const url = `${process.env.BASE_API_HOSTNAME}summoner/v1/summoners/by-name/${summonerName}`;
+  const url = `${process.env.BASE_API_HOST_JAPAN}summoner/v1/summoners/by-name/${summonerName}`;
   const res = await fetch(url, {
     method: 'GET',
     headers: {
@@ -123,7 +123,7 @@ const callMatchid = async (puuidList: string[]): Promise<string[]> => {
   const matchidList: string[] = [];
   //puuidList分ループする。
   for (const puuid of puuidList) {
-    const url = `${process.env.BASE_API_HOSTASIANAME}match/v1/matches/by-puuid/${puuid}/ids?count=20`;
+    const url = `${process.env.BASE_API_HOST_ASIA}match/v1/matches/by-puuid/${puuid}/ids?count=20`;
     const res = await fetch(url, {
       method: 'GET',
       headers: {
@@ -165,7 +165,7 @@ const callData = async (
   //マッチデータを取得
   for (let i = 0; i < 1; i++) {
     const matchid: string = matchidList[0];
-    const url = `${process.env.BASE_API_HOSTASIANAME}match/v1/matches/${matchid}`;
+    const url = `${process.env.BASE_API_HOST_ASIA}match/v1/matches/${matchid}`;
 
     const res = await fetch(url, {
       method: 'GET',
